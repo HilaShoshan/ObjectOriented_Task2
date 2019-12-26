@@ -35,7 +35,10 @@ public interface graph {
  * @param dest - the destination of the edge.
  * @param w - positive weight representing the cost (aka time, price, etc) between src-->dest.
  */
-	public void connect(int src, int dest, double w);
+	public static void connect(int src, int dest, double w) {
+	// TODO Auto-generated method stub
+	
+}
 	/**
 	 * This method return a pointer (shallow copy) for the
 	 * collection representing all the nodes in the graph. 
