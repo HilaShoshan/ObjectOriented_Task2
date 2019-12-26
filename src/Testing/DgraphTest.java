@@ -92,13 +92,16 @@ class DGraphTest {
 	}
 	@Test
 	void testRemoveNode() {
-
-		graph.removeNode(n4);
-		graph.removeNode(n5);
-		graph.removeNode(n6);
-		graph.removeNode(n7);
-		graph.removeNode(n8);
-		graph.removeNode(n9);
+		
+		DGraph b = new DGraph();
+		node n1 = new node(0,34);
+		node n2 = new node(1,5);
+		node n3 = new node(2,50);
+		b.connect(0,1,3);
+		b.connect(1,2,38);
+		b.connect(2,0,31);
+		b.removeNode(0);
+		System.out.println(b.getV());
 
 		fail("Not yet implemented");
 	}
