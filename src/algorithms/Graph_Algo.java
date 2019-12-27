@@ -76,9 +76,9 @@ public class Graph_Algo implements graph_algorithms{
 	@Override
 	public boolean isConnected() {
 		if(g.nodeSize() == 0) return true;
-		
+		paintAll(); //init all the graph's vertex in white (tag = 0)
 		Iterator<node_data> itr = g.getV().iterator();
-		node first = (node)itr.next();
+		node first = (node)itr.next(); //itr has next for sure, because we checked that g has more than 0 nodes
 		node next;
 		if(!isFirstConnected(first)) return false;
 		while(itr.hasNext()) {
@@ -102,8 +102,8 @@ public class Graph_Algo implements graph_algorithms{
 			return true;
 		}
 		Iterator<Integer> itr = node.getNeighbors().keySet().iterator();
-		if(itr.hasNext() && g.getNode((Integer)itr.next()).getTag() == 0) {
-			g.getNode((Integer)itr.next()).setTag(1);
+		if(itr.hasNext() && g.getNode(itr.next()).getTag() == 0) { //tag = 0 means that we haven't dealt with it yet
+			g.getNode(itr.next()).setTag(1);
 			return isConnectedToDest((node)(g.getNode(itr.next())), dest);
 		}
 		return false;
