@@ -21,8 +21,15 @@ public class Test {
 
 		Graph_Algo ga = new Graph_Algo();
 		ga.init(g);
-		System.out.println("main2");
+
+		System.out.println("test1_main");
 		System.out.println(ga.isConnected());
+
+		ga.getGraph().removeEdge(1, 2);
+
+		System.out.println("test2_main");
+		System.out.println(ga.isConnected());
+
 	}
 
 }

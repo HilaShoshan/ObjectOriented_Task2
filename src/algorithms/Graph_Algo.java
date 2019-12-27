@@ -17,11 +17,15 @@ import java.util.Iterator;
 /**
  * This empty class represents the set of graph-theory algorithms
  * which should be implemented as part of Ex2 - Do edit this class.
- * @author 
+ * @author
  *
  */
 public class Graph_Algo implements graph_algorithms{
 	private DGraph g;
+
+	public DGraph getGraph() {
+		return this.g;
+	}
 
 	@Override
 	public void init(graph g) {
@@ -52,7 +56,6 @@ public class Graph_Algo implements graph_algorithms{
 		{
 			System.out.println("ClassNotFoundException is caught");
 		}
-
 	}
 
 	@Override
@@ -87,6 +90,7 @@ public class Graph_Algo implements graph_algorithms{
 		}
 		return true;
 	}
+
 	private boolean isFirstConnected(node node) {
 		Iterator<node_data> itr = g.getV().iterator();
 		boolean connected;
@@ -96,24 +100,30 @@ public class Graph_Algo implements graph_algorithms{
 		}
 		return true;
 	}
+
 	private boolean isConnectedToDest(node node, node dest) {
 		if(node.getNeighbors().keySet().contains(dest.getKey())) {
 			dest.setTag(1);
 			return true;
 		}
 		Iterator<Integer> itr = node.getNeighbors().keySet().iterator();
-		if(itr.hasNext() && g.getNode(itr.next()).getTag() == 0) { //tag = 0 means that we haven't dealt with it yet
-			g.getNode(itr.next()).setTag(1);
-			return isConnectedToDest((node)(g.getNode(itr.next())), dest);
+		if(itr.hasNext()) {
+			int next = itr.next();
+			if(g.getNode(next).getTag() == 0) { //tag = 0 means that we haven't dealt with it yet
+				g.getNode(next).setTag(1);
+				return isConnectedToDest((node)(g.getNode(next)), dest);
+			}
 		}
 		return false;
 	}
+
 	private void paintAll() {
 		Iterator<node_data> itr = g.getV().iterator();
 		while(itr.hasNext()) {
 			itr.next().setTag(0);
 		}
 	}
+
 	@Override
 	public double shortestPathDist(int src, int dest) {
 		// TODO Auto-generated method stub
