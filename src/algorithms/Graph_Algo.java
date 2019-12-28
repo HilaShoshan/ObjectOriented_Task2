@@ -1,6 +1,7 @@
 package algorithms;
 
 import java.util.List;
+
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -23,6 +24,8 @@ import java.util.PriorityQueue;
  */
 public class Graph_Algo implements graph_algorithms{
 	private DGraph g;
+	private List<node_data> showShortestPass = null ;
+	
 
 	public DGraph getGraph() {
 		return this.g;
@@ -131,14 +134,16 @@ public class Graph_Algo implements graph_algorithms{
 		weightAll(src, pQueue);
 		node s = (node)this.g.getNode(src); //convert to the node with the key src;
 		node d = (node)this.g.getNode(dest); //node with key = dest;
+		this.showShortestPass.add(s);
 		node current;
 		String newInfo;
 		Iterator<Integer> itr;
 		while(!pQueue.isEmpty()) {
 			current = pQueue.peek();
 			newInfo = Integer.toString(current.getKey());
-			current.setInfo(current.getInfo() + newInfo + ",");
+			current.setInfo(current.getInfo() + newInfo +"," );
 			pQueue.poll(); //the vertex with the lowest dis will get out the queue each time
+			this.showShortestPass.add(current);
 			itr = current.getNeighbors().keySet().iterator();
 			while(itr.hasNext())
 				relaxation(current, (node)g.getNode(itr.next()));
@@ -169,8 +174,8 @@ public class Graph_Algo implements graph_algorithms{
 
 	@Override
 	public List<node_data> shortestPath(int src, int dest) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		 return this.showShortestPass;
 	}
 
 	@Override
