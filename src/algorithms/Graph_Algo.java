@@ -1,7 +1,6 @@
 package algorithms;
 
 import java.util.List;
-
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -13,6 +12,8 @@ import dataStructure.node_data;
 import dataStructure.DGraph;
 import dataStructure.node;
 import java.util.Iterator;
+import java.util.PriorityQueue;
+
 
 /**
  * This empty class represents the set of graph-theory algorithms
@@ -126,9 +127,24 @@ public class Graph_Algo implements graph_algorithms{
 
 	@Override
 	public double shortestPathDist(int src, int dest) {
-		// TODO Auto-generated method stub
+		priorityQueueNode pQueue = new priorityQueueNode(); //a PriorityQueue that saves all the vertex by the weights.
+		weightAll(src, pQueue);
+
 		return 0;
 	}
+
+	private void weightAll(int src, priorityQueueNode pQueue) {
+		Iterator<node_data> itr = this.g.getV().iterator();
+		node next;
+		while (itr.hasNext()) {
+			next = (node)itr.next();
+			if(next.getKey() != src)
+				next.setDis(next.getWeight()); //the initial distances are the weight of the vertex.
+			else next.setDis(0);
+			pQueue.addNode(next);
+		}
+	}
+
 	@Override
 	public List<node_data> shortestPath(int src, int dest) {
 		// TODO Auto-generated method stub

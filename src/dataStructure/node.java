@@ -10,6 +10,7 @@ public class node implements node_data {
     private Point3D location;
     private String info;
     private int tag;
+    private double dis; //a variable we've added that will save the distances at shortestPath method;
     private HashMap<Integer, edge_data> neighbors = new HashMap<Integer, edge_data>();
 
     public node() {
@@ -62,7 +63,6 @@ public class node implements node_data {
     @Override
     public void setWeight(double w) {
         this.weight = w;
-
     }
 
     @Override
@@ -77,7 +77,6 @@ public class node implements node_data {
 
     @Override
     public int getTag() {
-
         return this.tag;
     }
 
@@ -86,13 +85,19 @@ public class node implements node_data {
         this.tag = t;
     }
 
-
     public HashMap<Integer, edge_data> getNeighbors(){
         return this.neighbors;
     }
 
-
     public void setNeighbors(int dest, edge e) {
         this.neighbors.put(dest, e);
+    }
+
+    public double getDis() {
+        return this.dis;
+    }
+
+    public void setDis(double d) {
+        this.dis = d;
     }
 }
