@@ -1,9 +1,10 @@
 package dataStructure;
 
 import utils.Point3D;
+import java.util.Comparator;
 import java.util.HashMap;
 
-public class node implements node_data {
+public class node implements node_data, Comparator {
 
     private int key;
     private double weight;
@@ -100,4 +101,32 @@ public class node implements node_data {
     public void setDis(double d) {
         this.dis = d;
     }
+
+    //implements Compare method in Comparator
+
+    /**
+     * this method compare between two objects (it will be nodes).
+     * used for the priorityQueue in shortestPath method (Graph_Algo class).
+     * the comparison is made by dis parameter of the nodes (bigger dis --> bigger node).
+     * @param o1 = the first node to compare
+     * @param o2 = the second node
+     * @return: 0 - if the nodes are similar
+     *          1 - if the first one is bigger
+     *          -1 - else
+     */
+    public int compare(Object o1,Object o2){
+        if(!(o1 instanceof node) || !(o2 instanceof node))
+            throw new RuntimeException("CAN NOT COMPARE: one or more of the objects are not instanceof node!");
+
+        node n1=(node)o1;
+        node n2=(node)o2;
+
+        if(n1.getDis() == n2.getDis())
+            return 0;
+        else if(n1.getDis() > n2.getDis())
+            return 1;
+        else
+            return -1;
+    }
 }
+

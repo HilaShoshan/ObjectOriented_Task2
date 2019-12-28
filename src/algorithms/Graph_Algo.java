@@ -127,22 +127,44 @@ public class Graph_Algo implements graph_algorithms{
 
 	@Override
 	public double shortestPathDist(int src, int dest) {
-		priorityQueueNode pQueue = new priorityQueueNode(); //a PriorityQueue that saves all the vertex by the weights.
+		PriorityQueue<node> pQueue = new PriorityQueue<node>(); //a PriorityQueue that saves all the vertex by the weights.
 		weightAll(src, pQueue);
-
-		return 0;
+		node s = (node)this.g.getNode(src); //convert to the node with the key src;
+		node d = (node)this.g.getNode(dest); //node with key = dest;
+		node current;
+		String newInfo;
+		Iterator<Integer> itr;
+		while(!pQueue.isEmpty()) {
+			current = pQueue.peek();
+			newInfo = Integer.toString(current.getKey());
+			current.setInfo(current.getInfo() + newInfo + ",");
+			pQueue.poll(); //the vertex with the lowest dis will get out the queue each time
+			itr = current.getNeighbors().keySet().iterator();
+			while(itr.hasNext())
+				relaxation(current, (node)g.getNode(itr.next()));
+			// ? update the queue after
+		}
+		return s.getDis() + d.getDis();
 	}
 
-	private void weightAll(int src, priorityQueueNode pQueue) {
+	private void weightAll(int src, PriorityQueue<node> pQueue) {
 		Iterator<node_data> itr = this.g.getV().iterator();
 		node next;
 		while (itr.hasNext()) {
 			next = (node)itr.next();
 			if(next.getKey() != src)
-				next.setDis(next.getWeight()); //the initial distances are the weight of the vertex.
+				next.setDis(Double.MAX_VALUE); //the initial distances of all the other vertexes are INFINITY.
+				//next.setDis(next.getWeight()); //the initial distances are the weight of the vertex.
 			else next.setDis(0);
-			pQueue.addNode(next);
+			pQueue.add(next);
 		}
+	}
+
+	private void relaxation(node n, node adj) {
+		double edgeW = g.getEdge(n.getKey(),adj.getKey()).getWeight();
+		if(adj.getDis() > n.getDis() + adj.getWeight() + edgeW)
+			adj.setDis(n.getDis() + adj.getWeight() + edgeW);
+		// ? what to do with info
 	}
 
 	@Override
