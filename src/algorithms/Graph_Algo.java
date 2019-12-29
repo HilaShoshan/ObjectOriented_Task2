@@ -22,6 +22,7 @@ import java.util.PriorityQueue;
  * @author
  *
  */
+
 public class Graph_Algo implements graph_algorithms{
 	private DGraph g;
 	private List<node_data> showShortestPass = null ;
@@ -174,7 +175,7 @@ public class Graph_Algo implements graph_algorithms{
 
 	@Override
 	public List<node_data> shortestPath(int src, int dest) {
-		
+		shortestPathDist(src, dest);
 		 return this.showShortestPass;
 	}
 
