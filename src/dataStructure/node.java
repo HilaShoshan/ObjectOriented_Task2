@@ -114,6 +114,7 @@ public class node implements node_data, Comparator {
      *          1 - if the first one is bigger
      *          -1 - else
      */
+    @Override
     public int compare(Object o1,Object o2){
         if(!(o1 instanceof node) || !(o2 instanceof node))
             throw new RuntimeException("CAN NOT COMPARE: one or more of the objects are not instanceof node!");
