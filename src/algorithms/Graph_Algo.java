@@ -12,6 +12,9 @@ import dataStructure.graph;
 import dataStructure.node_data;
 import dataStructure.DGraph;
 import dataStructure.node;
+
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.PriorityQueue;
 
@@ -24,8 +27,7 @@ import java.util.PriorityQueue;
  */
 public class Graph_Algo implements graph_algorithms{
 	private DGraph g;
-	private List<node_data> showShortestPass = null ;
-	
+
 
 	public DGraph getGraph() {
 		return this.g;
@@ -130,26 +132,30 @@ public class Graph_Algo implements graph_algorithms{
 
 	@Override
 	public double shortestPathDist(int src, int dest) {
-		PriorityQueue<node> pQueue = new PriorityQueue<node>(); //a PriorityQueue that saves all the vertex by the weights.
+		PriorityQueue<node> pQueue = new PriorityQueue<node>(g.nodeSize(), new nodeComparator()); //a PriorityQueue that saves all the vertex by the weights.
 		weightAll(src, pQueue);
+		node d = (node)this.g.getNode(dest);
 		node s = (node)this.g.getNode(src); //convert to the node with the key src;
-		node d = (node)this.g.getNode(dest); //node with key = dest;
-		this.showShortestPass.add(s);
+		s.setInfo("");
+		//this.showShortestPass.add(s);
 		node current;
 		String newInfo;
+		String lastInfo;
 		Iterator<Integer> itr;
 		while(!pQueue.isEmpty()) {
 			current = pQueue.peek();
 			newInfo = Integer.toString(current.getKey());
-			current.setInfo(current.getInfo() + newInfo + ",");
-			pQueue.poll(); //the vertex with the lowest dis will get out the queue each time
-			this.showShortestPass.add(current);
+			String[] spl = current.getInfo().split(",");
+			lastInfo = spl[spl.length - 1];
+			if(!lastInfo.equals(newInfo))
+				current.setInfo(current.getInfo() + newInfo + ",");
+			pQueue.poll(); //the vertex with the lowest weight will get out the queue each time
+			//this.showShortestPass.add(current);
 			itr = current.getNeighbors().keySet().iterator();
 			while(itr.hasNext())
 				relaxation(current, (node)g.getNode(itr.next()), pQueue);
-			// ? update the queue after
 		}
-		return d.getDis(); //s.getWeight() +
+		return d.getWeight();
 	}
 
 	private void weightAll(int src, PriorityQueue<node> pQueue) {
@@ -158,8 +164,8 @@ public class Graph_Algo implements graph_algorithms{
 		while (itr.hasNext()) {
 			next = (node)itr.next();
 			if(next.getKey() != src)
-				next.setDis(Double.MAX_VALUE); //the initial distances of all the other vertexes are INFINITY.
-			else next.setDis(0);
+				next.setWeight(Double.MAX_VALUE); //the initial distances of all the other vertexes are INFINITY.
+			else next.setWeight(0);
 			pQueue.add(next);
 		}
 	}
@@ -167,8 +173,8 @@ public class Graph_Algo implements graph_algorithms{
 	private void relaxation(node n, node adj, PriorityQueue<node> pQueue) {
 		double edgeW = g.getEdge(n.getKey(),adj.getKey()).getWeight();
 		String adj_name;
-		if(adj.getDis() > n.getDis() + adj.getWeight() + edgeW) {
-			adj.setDis(n.getDis() + adj.getWeight() + edgeW);
+		if(adj.getWeight() > n.getWeight() + edgeW) {
+			adj.setWeight(n.getWeight() + edgeW);
 			adj_name = Integer.toString(adj.getKey());
 			adj.setInfo(n.getInfo() + adj_name + ",");
 			pQueue.add(adj);
@@ -177,8 +183,14 @@ public class Graph_Algo implements graph_algorithms{
 
 	@Override
 	public List<node_data> shortestPath(int src, int dest) {
-		
-		 return this.showShortestPass;
+		shortestPathDist(src, dest);
+		node d = (node)this.g.getNode(dest); //convert to the node with the key dest;
+		String[] pathArr = d.getInfo().split(",");
+		List<node_data> path = new ArrayList<node_data>();
+		for(int i=0; i<pathArr.length; i++) {
+			path.add(g.getNode(Integer.parseInt(pathArr[i])));
+		}
+		return path;
 	}
 
 	@Override
@@ -192,6 +204,23 @@ public class Graph_Algo implements graph_algorithms{
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-
 }
+
+class nodeComparator implements Comparator<node>{
+
+	@Override
+	public int compare(node o1,node o2){
+
+		node n1=(node)o1;
+		node n2=(node)o2;
+
+		if(n1.getWeight() == n2.getWeight())
+			return 0;
+		else if(n1.getWeight() > n2.getWeight())
+			return 1;
+		else
+			return -1;
+	}
+}
+
+

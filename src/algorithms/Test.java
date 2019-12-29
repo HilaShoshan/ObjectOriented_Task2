@@ -32,11 +32,11 @@ public class Test {
 
 
 		DGraph g = new DGraph();
-		node n1 = new node(0,10);
-		node n2 = new node(1,7);
-		node n3 = new node(2,2);
-		node n4 = new node(3,5);
-		node n5 = new node(4,12);
+		node n1 = new node(0);
+		node n2 = new node(1);
+		node n3 = new node(2);
+		node n4 = new node(3);
+		node n5 = new node(4);
 		g.addNode(n1);
 		g.addNode(n2);
 		g.addNode(n3);
@@ -53,6 +53,7 @@ public class Test {
 		ga.init(g);
 
 		System.out.println("test: " + ga.shortestPathDist(0,2));
+		System.out.println("list test: " + ga.shortestPath(0, 2));
 	}
 
 }

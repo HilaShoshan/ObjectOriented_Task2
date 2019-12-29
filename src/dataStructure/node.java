@@ -7,11 +7,10 @@ import java.util.HashMap;
 public class node implements node_data, Comparator {
 
     private int key;
-    private double weight;
+    private double weight; //a variable that will save the distances at shortestPathDist method;
     private Point3D location;
     private String info;
     private int tag;
-    private double dis; //a variable we've added that will save the distances at shortestPath method;
     private HashMap<Integer, edge_data> neighbors = new HashMap<Integer, edge_data>();
 
     public node() {
@@ -28,9 +27,8 @@ public class node implements node_data, Comparator {
         this.location = location;
     }
 
-    public node(int key, double weight) {
+    public node(int key) {
         this.key = key;
-        this.weight = weight;
     }
 
     public node(node copy) {
@@ -94,14 +92,6 @@ public class node implements node_data, Comparator {
         this.neighbors.put(dest, e);
     }
 
-    public double getDis() {
-        return this.dis;
-    }
-
-    public void setDis(double d) {
-        this.dis = d;
-    }
-
     //implements Compare method in Comparator
 
     /**
@@ -122,9 +112,9 @@ public class node implements node_data, Comparator {
         node n1=(node)o1;
         node n2=(node)o2;
 
-        if(n1.getDis() == n2.getDis())
+        if(n1.getWeight() == n2.getWeight())
             return 0;
-        else if(n1.getDis() > n2.getDis())
+        else if(n1.getWeight() > n2.getWeight())
             return 1;
         else
             return -1;
