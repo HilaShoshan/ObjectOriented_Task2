@@ -138,7 +138,6 @@ public class Graph_Algo implements graph_algorithms{
 		node d = (node)this.g.getNode(dest);
 		node s = (node)this.g.getNode(src); //convert to the node with the key src;
 		s.setInfo("");
-		//this.showShortestPass.add(s);
 		node current;
 		String newInfo;
 		String lastInfo;
@@ -151,7 +150,6 @@ public class Graph_Algo implements graph_algorithms{
 			if(!lastInfo.equals(newInfo))
 				current.setInfo(current.getInfo() + newInfo + ",");
 			pQueue.poll(); //the vertex with the lowest weight will get out the queue each time
-			//this.showShortestPass.add(current);
 			itr = current.getNeighbors().keySet().iterator();
 			while(itr.hasNext())
 				relaxation(current, (node)g.getNode(itr.next()), pQueue);
@@ -184,8 +182,6 @@ public class Graph_Algo implements graph_algorithms{
 
 	@Override
 	public List<node_data> shortestPath(int src, int dest) {
-	
-
 		node d = (node)this.g.getNode(dest); //convert to the node with the key dest;
 		String[] pathArr = d.getInfo().split(",");
 		List<node_data> path = new ArrayList<node_data>();
@@ -193,19 +189,25 @@ public class Graph_Algo implements graph_algorithms{
 			path.add(g.getNode(Integer.parseInt(pathArr[i])));
 		}
 		return path;
-
 	}
 
 	@Override
 	public List<node_data> TSP(List<Integer> targets) {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 
 	@Override
 	public graph copy() {
-		// TODO Auto-generated method stub
-		return null;
+		Graph_Algo ga = new Graph_Algo();
+		DGraph newG = new DGraph();
+		Iterator<node_data> itr = this.g.getV().iterator();
+		while(itr.hasNext()) {
+			newG.addNode(itr.next());
+		}
+		//maybe we should copy all the elements in the hashMap also...
+		ga.init(newG);
+		return newG;
 	}
 }
 
