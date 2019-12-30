@@ -1,22 +1,19 @@
 package algorithms;
 
-import java.util.List;
-
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-
-import dataStructure.graph;
-import dataStructure.node_data;
-import dataStructure.DGraph;
-import dataStructure.Node;
-
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Iterator;
+import java.util.List;
 import java.util.PriorityQueue;
+import dataStructure.DGraph;
+import dataStructure.Node;
+import dataStructure.graph;
+import dataStructure.node_data;
 
 
 /**
@@ -27,8 +24,17 @@ import java.util.PriorityQueue;
  */
 
 public class Graph_Algo implements graph_algorithms{
-	private DGraph g;
+	DGraph g;
+	/*
+	 * Default constructor
+	 */
+	public Graph_Algo() {
+		this.g = new DGraph();
+	}
 
+	/*
+	 * Set this graph to the parameter's graph
+	 */
 
 	public DGraph getGraph() {
 		return this.getG();
@@ -88,7 +94,7 @@ public class Graph_Algo implements graph_algorithms{
 		if(getG().nodeSize() == 0) return true;
 		paintAll(); //init all the graph's vertex in white (tag = 0)
 		Iterator<node_data> itr = getG().getV().iterator();
-		Node first = (Node)itr.next(); //itr has next for sure, because we checked that g has more than 0 Nodes
+		Node first = (Node)itr.next(); //itr has next for sure, because we checked that g has more than 0 nodes
 		Node next;
 		if(!isFirstConnected(first)) return false;
 		while(itr.hasNext()) {
@@ -98,22 +104,22 @@ public class Graph_Algo implements graph_algorithms{
 		return true;
 	}
 
-	private boolean isFirstConnected(Node Node) {
+	private boolean isFirstConnected(Node node) {
 		Iterator<node_data> itr = getG().getV().iterator();
 		boolean connected;
-		while(itr.hasNext() && itr.next() != Node) {
-			connected = isConnectedToDest(Node, (Node)itr.next());
+		while(itr.hasNext() && itr.next() != node) {
+			connected = isConnectedToDest(node, (Node)itr.next());
 			if(!connected) return false;
 		}
 		return true;
 	}
 
-	private boolean isConnectedToDest(Node Node, Node dest) {
-		if(Node.getNeighbors().keySet().contains(dest.getKey())) {
+	private boolean isConnectedToDest(Node node, Node dest) {
+		if(node.getNeighbors().keySet().contains(dest.getKey())) {
 			dest.setTag(1);
 			return true;
 		}
-		Iterator<Integer> itr = Node.getNeighbors().keySet().iterator();
+		Iterator<Integer> itr = node.getNeighbors().keySet().iterator();
 		if(itr.hasNext()) {
 			int next = itr.next();
 			if(getG().getNode(next).getTag() == 0) { //tag = 0 means that we haven't dealt with it yet
@@ -133,10 +139,10 @@ public class Graph_Algo implements graph_algorithms{
 
 	@Override
 	public double shortestPathDist(int src, int dest) {
-		PriorityQueue<Node> pQueue = new PriorityQueue<Node>(getG().nodeSize(), new NodeComparator()); //a PriorityQueue that saves all the vertex by the weights.
+		PriorityQueue<Node> pQueue = new PriorityQueue<Node>(getG().nodeSize(), new nodeComparator()); //a PriorityQueue that saves all the vertex by the weights.
 		weightAll(src, pQueue);
 		Node d = (Node)this.getG().getNode(dest);
-		Node s = (Node)this.getG().getNode(src); //convert to the Node with the key src;
+		Node s = (Node)this.getG().getNode(src); //convert to the node with the key src;
 		s.setInfo("");
 		Node current;
 		String newInfo;
@@ -145,16 +151,14 @@ public class Graph_Algo implements graph_algorithms{
 		while(!pQueue.isEmpty()) {
 			current = pQueue.peek();
 			newInfo = Integer.toString(current.getKey());
-			if(current.getInfo() != null) {
-				String[] spl = current.getInfo().split(",");
-				lastInfo = spl[spl.length - 1];
-				if(!lastInfo.equals(newInfo))
-					current.setInfo(current.getInfo() + newInfo + ",");
-				pQueue.poll(); //the vertex with the lowest weight will get out the queue each time
-				itr = current.getNeighbors().keySet().iterator();
-				while(itr.hasNext())
-					relaxation(current, (Node)getG().getNode(itr.next()), pQueue);
-			}
+			String[] spl = current.getInfo().split(",");
+			lastInfo = spl[spl.length - 1];
+			if(!lastInfo.equals(newInfo))
+				current.setInfo(current.getInfo() + newInfo + ",");
+			pQueue.poll(); //the vertex with the lowest weight will get out the queue each time
+			itr = current.getNeighbors().keySet().iterator();
+			while(itr.hasNext())
+				relaxation(current, (Node)getG().getNode(itr.next()), pQueue);
 		}
 		return d.getWeight();
 	}
@@ -184,9 +188,7 @@ public class Graph_Algo implements graph_algorithms{
 
 	@Override
 	public List<node_data> shortestPath(int src, int dest) {
-		shortestPathDist(src, dest);
-		Node d = (Node)this.getG().getNode(dest); //convert to the Node with the key dest;
-		if(d.getInfo() == null) return null;
+		Node d = (Node)this.getG().getNode(dest); //convert to the node with the key dest;
 		String[] pathArr = d.getInfo().split(",");
 		List<node_data> path = new ArrayList<node_data>();
 		for(int i=0; i<pathArr.length; i++) {
@@ -232,6 +234,7 @@ public class Graph_Algo implements graph_algorithms{
 			}
 		}
 		return pathRes;
+
 	}
 
 	@Override
@@ -257,9 +260,8 @@ public class Graph_Algo implements graph_algorithms{
 	}
 }
 
-class NodeComparator implements Comparator<Node>{
+class nodeComparator implements Comparator<Node>{
 
-	@Override
 	public int compare(Node o1,Node o2){
 
 		Node n1=(Node)o1;
@@ -272,6 +274,8 @@ class NodeComparator implements Comparator<Node>{
 		else
 			return -1;
 	}
+
+
 }
 
 
