@@ -1,22 +1,20 @@
 package algorithms;
 
-import java.util.List;
-
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-
-import dataStructure.graph;
-import dataStructure.node_data;
-import dataStructure.DGraph;
-import dataStructure.node;
-
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Iterator;
+import java.util.List;
 import java.util.PriorityQueue;
+
+import dataStructure.DGraph;
+import dataStructure.Node;
+import dataStructure.graph;
+import dataStructure.node_data;
 
 
 /**
@@ -88,27 +86,27 @@ public class Graph_Algo implements graph_algorithms{
 		if(getG().nodeSize() == 0) return true;
 		paintAll(); //init all the graph's vertex in white (tag = 0)
 		Iterator<node_data> itr = getG().getV().iterator();
-		node first = (node)itr.next(); //itr has next for sure, because we checked that g has more than 0 nodes
-		node next;
+		Node first = (Node)itr.next(); //itr has next for sure, because we checked that g has more than 0 nodes
+		Node next;
 		if(!isFirstConnected(first)) return false;
 		while(itr.hasNext()) {
-			next = (node)itr.next();
+			next = (Node)itr.next();
 			if(!isConnectedToDest(next, first)) return false;
 		}
 		return true;
 	}
 
-	private boolean isFirstConnected(node node) {
+	private boolean isFirstConnected(Node node) {
 		Iterator<node_data> itr = getG().getV().iterator();
 		boolean connected;
 		while(itr.hasNext() && itr.next() != node) {
-			connected = isConnectedToDest(node, (node)itr.next());
+			connected = isConnectedToDest(node, (Node)itr.next());
 			if(!connected) return false;
 		}
 		return true;
 	}
 
-	private boolean isConnectedToDest(node node, node dest) {
+	private boolean isConnectedToDest(Node node, Node dest) {
 		if(node.getNeighbors().keySet().contains(dest.getKey())) {
 			dest.setTag(1);
 			return true;
@@ -118,7 +116,7 @@ public class Graph_Algo implements graph_algorithms{
 			int next = itr.next();
 			if(getG().getNode(next).getTag() == 0) { //tag = 0 means that we haven't dealt with it yet
 				getG().getNode(next).setTag(1);
-				return isConnectedToDest((node)(getG().getNode(next)), dest);
+				return isConnectedToDest((Node)(getG().getNode(next)), dest);
 			}
 		}
 		return false;
@@ -133,12 +131,12 @@ public class Graph_Algo implements graph_algorithms{
 
 	@Override
 	public double shortestPathDist(int src, int dest) {
-		PriorityQueue<node> pQueue = new PriorityQueue<node>(getG().nodeSize(), new nodeComparator()); //a PriorityQueue that saves all the vertex by the weights.
+		PriorityQueue<Node> pQueue = new PriorityQueue<Node>(getG().nodeSize(), new nodeComparator()); //a PriorityQueue that saves all the vertex by the weights.
 		weightAll(src, pQueue);
-		node d = (node)this.getG().getNode(dest);
-		node s = (node)this.getG().getNode(src); //convert to the node with the key src;
+		Node d = (Node)this.getG().getNode(dest);
+		Node s = (Node)this.getG().getNode(src); //convert to the node with the key src;
 		s.setInfo("");
-		node current;
+		Node current;
 		String newInfo;
 		String lastInfo;
 		Iterator<Integer> itr;
@@ -152,16 +150,16 @@ public class Graph_Algo implements graph_algorithms{
 			pQueue.poll(); //the vertex with the lowest weight will get out the queue each time
 			itr = current.getNeighbors().keySet().iterator();
 			while(itr.hasNext())
-				relaxation(current, (node)getG().getNode(itr.next()), pQueue);
+				relaxation(current, (Node)getG().getNode(itr.next()), pQueue);
 		}
 		return d.getWeight();
 	}
 
-	private void weightAll(int src, PriorityQueue<node> pQueue) {
+	private void weightAll(int src, PriorityQueue<Node> pQueue) {
 		Iterator<node_data> itr = this.getG().getV().iterator();
-		node next;
+		Node next;
 		while (itr.hasNext()) {
-			next = (node)itr.next();
+			next = (Node)itr.next();
 			if(next.getKey() != src)
 				next.setWeight(Double.MAX_VALUE); //the initial distances of all the other vertexes are INFINITY.
 			else next.setWeight(0);
@@ -169,7 +167,7 @@ public class Graph_Algo implements graph_algorithms{
 		}
 	}
 
-	private void relaxation(node n, node adj, PriorityQueue<node> pQueue) {
+	private void relaxation(Node n, Node adj, PriorityQueue<Node> pQueue) {
 		double edgeW = getG().getEdge(n.getKey(),adj.getKey()).getWeight();
 		String adj_name;
 		if(adj.getWeight() > n.getWeight() + edgeW) {
@@ -182,9 +180,13 @@ public class Graph_Algo implements graph_algorithms{
 
 	@Override
 	public List<node_data> shortestPath(int src, int dest) {
+<<<<<<< HEAD
 		shortestPathDist(src, dest);
 		node d = (node)this.getG().getNode(dest); //convert to the node with the key dest;
 		if(d.getInfo() == null) return null;
+=======
+		Node d = (Node)this.getG().getNode(dest); //convert to the node with the key dest;
+>>>>>>> a9032e4190c1ed11148d390bd4633529357c75a0
 		String[] pathArr = d.getInfo().split(",");
 		List<node_data> path = new ArrayList<node_data>();
 		for(int i=0; i<pathArr.length; i++) {
@@ -241,13 +243,12 @@ public class Graph_Algo implements graph_algorithms{
 	}
 }
 
-class nodeComparator implements Comparator<node>{
+class nodeComparator implements Comparator<Node>{
 
-	@Override
-	public int compare(node o1,node o2){
+	public int compare(Node o1,Node o2){
 
-		node n1=(node)o1;
-		node n2=(node)o2;
+		Node n1=(Node)o1;
+		Node n2=(Node)o2;
 
 		if(n1.getWeight() == n2.getWeight())
 			return 0;
@@ -255,6 +256,12 @@ class nodeComparator implements Comparator<node>{
 			return 1;
 		else
 			return -1;
+	}
+
+	@Override
+	public int compare(algorithms.Node arg0, algorithms.Node arg1) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }
 

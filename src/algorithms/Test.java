@@ -6,9 +6,13 @@ import java.util.Iterator;
 import java.util.List;
 
 import dataStructure.DGraph;
+<<<<<<< HEAD
 import dataStructure.node;
 import dataStructure.node_data;
 import javafx.geometry.Point3D;
+=======
+import dataStructure.Node;
+>>>>>>> a9032e4190c1ed11148d390bd4633529357c75a0
 
 public class Test {
 
@@ -38,12 +42,21 @@ public class Test {
 		System.out.println(ga.isConnected());*/
 
 
+<<<<<<< HEAD
 		/*DGraph g = new DGraph();
 		node n1 = new node(0);
 		node n2 = new node(1);
 		node n3 = new node(2);
 		node n4 = new node(3);
 		node n5 = new node(4);
+=======
+		DGraph g = new DGraph();
+		Node n1 = new Node(0);
+		Node n2 = new Node(1);
+		Node n3 = new Node(2);
+		Node n4 = new Node(3);
+		Node n5 = new Node(4);
+>>>>>>> a9032e4190c1ed11148d390bd4633529357c75a0
 		g.addNode(n1);
 		g.addNode(n2);
 		g.addNode(n3);

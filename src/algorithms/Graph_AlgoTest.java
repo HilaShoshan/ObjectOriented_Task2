@@ -11,10 +11,10 @@ import com.sun.javafx.geom.Edge;
 
 import algorithms.Graph_Algo;
 import dataStructure.DGraph;
+import dataStructure.Node;
 import dataStructure.edge;
 import dataStructure.edge_data;
 import dataStructure.graph;
-import dataStructure.node;
 import dataStructure.node_data;
 import utils.Point3D;
 
@@ -36,12 +36,12 @@ class Graph_AlgoTest {
 		boolean ans = ga.getG() == dg;
 		assertEquals(true, ans);
 
-		n4 = new node(0,0,new Point3D(50, 10));
-		n5 = new node(0,0,new Point3D(10, 10));
-		n6 = new node(0,0,new Point3D(50, 40));
-		n7 = new node(0,0,new Point3D(33, 25));
-		n8 = new node(0,0,new Point3D(10, 40));
-		n9 = new node(0,0,new Point3D(33, 50));
+		n4 = new Node(0,0,new Point3D(50, 10));
+		n5 = new Node(0,0,new Point3D(10, 10));
+		n6 = new Node(0,0,new Point3D(50, 40));
+		n7 = new Node(0,0,new Point3D(33, 25));
+		n8 = new Node(0,0,new Point3D(10, 40));
+		n9 = new Node(0,0,new Point3D(33, 50));
 	}
 
 
@@ -60,7 +60,7 @@ void testSave() {
 void testIsConnected() {
 	Graph_Algo ga = new Graph_Algo();
 	for(int i=0;i<11;i++) {//0 1 2 3 4 5 6 7 8 9 10
-		ga.getG().addNode(new node(i,0,new Point3D(i, i)));;
+		ga.getG().addNode(new Node(i,0,new Point3D(i, i)));;
 	}
 	for(int j=0;j<10;j++) {
 		ga.getG().connect(j,j+1 , 2);
@@ -95,8 +95,8 @@ void testTSP() {
 @Test
 void testCopy() {
 	Graph_Algo ga = new Graph_Algo();
-	ga.getG().addNode(new node());
-	ga.getG().addNode(new node(1,2,new Point3D(5, 5)));
+	ga.getG().addNode(new Node());
+	ga.getG().addNode(new Node(1,2,new Point3D(5, 5)));
 	ga.getG().connect(0, 1, 2);
 	graph ga2 =new DGraph();
 	ga2 =ga.copy();
