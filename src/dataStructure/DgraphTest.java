@@ -17,15 +17,11 @@ class DGraphTest {
 	node_data n7;
 	node_data n8;
 	node_data n9;
-	node n1;
-	node n2;
-	node n3;
+	
 	@BeforeEach
 	void init() {
 
-		n1 = new node(0,34);
-		n2 = new node(1,5);
-		n3 = new node(2,50);
+	
 		n4 = new node(0,0,new Point3D(50, 10));
 		n5 = new node(0,0,new Point3D(10, 10));
 		n6 = new node(0,0,new Point3D(50, 40));
@@ -41,11 +37,11 @@ class DGraphTest {
 
 	@Test
 	void testGetNode1() {
-		assertEquals(n1,g.getNode(1));
+		assertEquals(n4,g.getNode(1));
 	}
 	@Test
 	void testGetNode() {
-		assertEquals(n2,g.getNode(1));
+		assertEquals(n5,g.getNode(1));
 	}
 	@Test
 	void testGetEdge() {
