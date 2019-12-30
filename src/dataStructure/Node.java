@@ -40,10 +40,14 @@ public class Node implements node_data, Comparator<Object> {
         this.info = copy.info;
         this.tag = copy.tag;
         this.isVisit = copy.isVisit;
-        this.neighbors = (HashMap<Integer, edge_data>)copy.neighbors.clone();
+        this.neighbors = cloneNeighbors(copy.neighbors);
     }
 
-    @Override
+    private HashMap<Integer, edge_data> cloneNeighbors(HashMap<Integer, edge_data> neigh) {
+		return null;
+	}
+
+	@Override
     public int getKey() {
         return this.key;
     }
