@@ -222,7 +222,7 @@ public class Graph_Algo implements graph_algorithms{
 					}
 					else break;
 				}
-				if(shortestPath(current, next) == null) return null; //**
+				if(shortestPath(current, next) == null) return null; 
 				arr = n.getInfo().split(",");
 				for(int i=0; i<arr.length; i++) {
 					Node tmp = (Node)g.getNode(Integer.parseInt(arr[i]));
@@ -238,11 +238,12 @@ public class Graph_Algo implements graph_algorithms{
 	public graph copy() {
 		Graph_Algo ga = new Graph_Algo();
 		DGraph newG = new DGraph();
-		Iterator<node_data> itr = this.getG().getV().iterator();
+		Iterator<node_data> itr = this.g.getV().iterator();
+		Node copy;
 		while(itr.hasNext()) {
-			newG.addNode(itr.next());
+			copy = new Node((Node)itr.next());
+			newG.addNode(copy);
 		}
-		//maybe we should copy all the elements in the hashMap also...
 		ga.init(newG);
 		return newG;
 	}

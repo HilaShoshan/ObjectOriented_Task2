@@ -4,9 +4,7 @@ import utils.Point3D;
 import java.util.Comparator;
 import java.util.HashMap;
 
-
 public class Node implements node_data, Comparator<Object> {
-
 
     private int key;
     private double weight; //a variable that will save the distances at shortestPathDist method;
@@ -42,6 +40,7 @@ public class Node implements node_data, Comparator<Object> {
         this.info = copy.info;
         this.tag = copy.tag;
         this.isVisit = copy.isVisit;
+        this.neighbors = (HashMap<Integer, edge_data>)copy.neighbors.clone();
     }
 
     @Override
