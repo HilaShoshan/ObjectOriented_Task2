@@ -4,7 +4,7 @@ import utils.Point3D;
 import java.util.Comparator;
 import java.util.HashMap;
 
-public class node implements node_data, Comparator {
+public class Node implements node_data, Comparator {
 
     private int key;
     private double weight; //a variable that will save the distances at shortestPathDist method;
@@ -13,7 +13,7 @@ public class node implements node_data, Comparator {
     private int tag;
     private HashMap<Integer, edge_data> neighbors = new HashMap<Integer, edge_data>();
 
-    public node() {
+    public Node() {
         key = 0;
         weight = 0;
         location = null;
@@ -21,17 +21,17 @@ public class node implements node_data, Comparator {
         tag = 0;
     }
 
-    public node(int key, double weight, Point3D location) {
+    public Node(int key, double weight, Point3D location) {
         this.key = key;
         this.weight = weight;
         this.location = location;
     }
 
-    public node(int key) {
+    public Node(int key) {
         this.key = key;
     }
 
-    public node(node copy) {
+    public Node(Node copy) {
         this.key = copy.key;
         this.weight = copy.weight;
         this.location = copy.location;
@@ -106,11 +106,11 @@ public class node implements node_data, Comparator {
      */
     @Override
     public int compare(Object o1,Object o2){
-        if(!(o1 instanceof node) || !(o2 instanceof node))
+        if(!(o1 instanceof Node) || !(o2 instanceof Node))
             throw new RuntimeException("CAN NOT COMPARE: one or more of the objects are not instanceof node!");
 
-        node n1=(node)o1;
-        node n2=(node)o2;
+        Node n1=(Node)o1;
+        Node n2=(Node)o2;
 
         if(n1.getWeight() == n2.getWeight())
             return 0;
