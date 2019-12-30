@@ -4,7 +4,7 @@ import utils.Point3D;
 import java.util.Comparator;
 import java.util.HashMap;
 
-public class node implements node_data, Comparator {
+public class node implements node_data, Comparator<Object> {
 
     private int key;
     private double weight; //a variable that will save the distances at shortestPathDist method;
@@ -12,6 +12,7 @@ public class node implements node_data, Comparator {
     private String info;
     private int tag;
     private HashMap<Integer, edge_data> neighbors = new HashMap<Integer, edge_data>();
+    private boolean isVisit;
 
     public node() {
         key = 0;
@@ -19,6 +20,7 @@ public class node implements node_data, Comparator {
         location = null;
         info = "";
         tag = 0;
+        isVisit = false;
     }
 
     public node(int key, double weight, Point3D location) {
@@ -37,6 +39,7 @@ public class node implements node_data, Comparator {
         this.location = copy.location;
         this.info = copy.info;
         this.tag = copy.tag;
+        this.isVisit = copy.isVisit;
     }
 
     @Override
@@ -92,6 +95,14 @@ public class node implements node_data, Comparator {
         this.neighbors.put(dest, e);
     }
 
+    public boolean getIsVisit() {
+    	return this.isVisit;
+    }
+    
+    public void setIsVisit(boolean b) {
+    	this.isVisit = b; 
+    }
+    
     //implements Compare method in Comparator
 
     /**

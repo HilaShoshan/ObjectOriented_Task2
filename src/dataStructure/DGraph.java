@@ -13,11 +13,14 @@ public class DGraph implements graph, Serializable {
 
 	@Override
 	public node_data getNode(int key) {
+		if(!graph.containsKey(key)) throw new RuntimeException("Error: the node is not in the graph!");
 		return graph.get(key);
 	}
 
 	@Override
 	public edge_data getEdge(int src, int dest) {
+		if(!graph.containsKey(src)) throw new RuntimeException("Error: the sorce node is not in the graph!");
+		if(!((node) graph.get(src)).getNeighbors().containsKey(dest)) throw new RuntimeException("Error: the destination node is not in the graph!");
 		return ((node) graph.get(src)).getNeighbors().get(dest);
 	}
 

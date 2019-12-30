@@ -182,7 +182,9 @@ public class Graph_Algo implements graph_algorithms{
 
 	@Override
 	public List<node_data> shortestPath(int src, int dest) {
+		shortestPathDist(src, dest);
 		node d = (node)this.getG().getNode(dest); //convert to the node with the key dest;
+		if(d.getInfo() == null) return null;
 		String[] pathArr = d.getInfo().split(",");
 		List<node_data> path = new ArrayList<node_data>();
 		for(int i=0; i<pathArr.length; i++) {
@@ -193,8 +195,28 @@ public class Graph_Algo implements graph_algorithms{
 
 	@Override
 	public List<node_data> TSP(List<Integer> targets) {
-		
-		return null;
+		Iterator<Integer> itr = targets.iterator();
+		List<node_data> pathRes = new ArrayList<node_data>(); //the returned list of all the vertexes we visited 
+		int current, next;
+		String [] arr;
+		while(itr.hasNext()) {
+			current = itr.next();
+			if(!itr.hasNext()) break;
+			else {
+				next = itr.next();
+				node n = (node)g.getNode(next);
+				if(!n.getIsVisit()) {
+					if(shortestPath(current, next) == null) return null; //**
+					arr = n.getInfo().split(",");
+					for(int i=0; i<arr.length; i++) {
+						node tmp = (node)g.getNode(Integer.parseInt(arr[i]));
+						tmp.setIsVisit(true);
+						pathRes.add(tmp);
+					}
+				}
+			}
+		}
+		return pathRes;
 	}
 
 	@Override

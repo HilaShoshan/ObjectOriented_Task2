@@ -1,7 +1,14 @@
 package algorithms;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
+
 import dataStructure.DGraph;
 import dataStructure.node;
+import dataStructure.node_data;
+import javafx.geometry.Point3D;
 
 public class Test {
 
@@ -31,7 +38,7 @@ public class Test {
 		System.out.println(ga.isConnected());*/
 
 
-		DGraph g = new DGraph();
+		/*DGraph g = new DGraph();
 		node n1 = new node(0);
 		node n2 = new node(1);
 		node n3 = new node(2);
@@ -54,6 +61,55 @@ public class Test {
 
 		System.out.println("test: " + ga.shortestPathDist(0,2));
 		System.out.println("list test: " + ga.shortestPath(0, 2));
+		List<Integer> list = new ArrayList<Integer>();
+		list.add(2);
+		list.add(4);
+		list.add(0);
+		Iterator<node_data> itr = ga.TSP(list).iterator();
+		while(itr.hasNext())
+			System.out.print(((node)(itr.next())).getKey() +",");
+		
+		g.removeNode(2);
+		ga.init(g);
+		System.out.println(ga.TSP(list));*/
+	
+		DGraph test = new DGraph();
+		for (int i = 0; i<1000;i++){
+          //Point3D tP = new Point3D(10,i);
+          node n = new node(i);
+          test.addNode(n);
+
+      }
+      for (int i=0;i<999;i++){
+          test.connect(i,i+1,i*10+100);
+      }
+      test.connect(999,0,1000);
+
+      for (int i =0;i<10000;i++){
+          int r =  (int)(Math.random()*999);
+          int r2 = (int)(Math.random()*999);
+          if (r!= r2) {
+              test.connect(r, r2, r + i);
+          }
+      }
+      List<Integer> tar = new ArrayList<>();
+      for (int i = 0;i<1000;i++){
+          int r = (int)(Math.random()*3);
+          if (r==2){
+              tar.add(i);
+          }
+      }
+      System.out.println(tar.size());
+      Date date = new Date();
+      Graph_Algo ga = new Graph_Algo();
+      ga.init(test);
+      double ff = date.getTime();
+      System.out.println(ga.shortestPathDist(1, 300));
+      date = new Date();
+      double f = date.getTime();
+      System.out.println(f-ff);
+      //System.out.println(t.size());
+		
 	}
 
 }
