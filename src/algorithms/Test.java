@@ -6,13 +6,10 @@ import java.util.Iterator;
 import java.util.List;
 
 import dataStructure.DGraph;
-<<<<<<< HEAD
-import dataStructure.node;
+import dataStructure.Node;
 import dataStructure.node_data;
 import javafx.geometry.Point3D;
-=======
 import dataStructure.Node;
->>>>>>> a9032e4190c1ed11148d390bd4633529357c75a0
 
 public class Test {
 
@@ -41,8 +38,6 @@ public class Test {
 		System.out.println("test2_main");
 		System.out.println(ga.isConnected());*/
 
-
-<<<<<<< HEAD
 		/*DGraph g = new DGraph();
 		node n1 = new node(0);
 		node n2 = new node(1);
@@ -89,7 +84,7 @@ public class Test {
 		DGraph test = new DGraph();
 		for (int i = 0; i<1000;i++){
           //Point3D tP = new Point3D(10,i);
-          node n = new node(i);
+          Node n = new Node(i);
           test.addNode(n);
 
       }
@@ -117,11 +112,10 @@ public class Test {
       Graph_Algo ga = new Graph_Algo();
       ga.init(test);
       double ff = date.getTime();
-      System.out.println(ga.shortestPathDist(1, 300));
+      System.out.println(ga.TSP(tar).size());
       date = new Date();
       double f = date.getTime();
       System.out.println(f-ff);
-      //System.out.println(t.size());
 		
 	}
 

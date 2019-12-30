@@ -4,11 +4,9 @@ import utils.Point3D;
 import java.util.Comparator;
 import java.util.HashMap;
 
-<<<<<<< HEAD:src/dataStructure/node.java
-public class node implements node_data, Comparator<Object> {
-=======
-public class Node implements node_data, Comparator {
->>>>>>> a9032e4190c1ed11148d390bd4633529357c75a0:src/dataStructure/Node.java
+
+public class Node implements node_data, Comparator<Object> {
+
 
     private int key;
     private double weight; //a variable that will save the distances at shortestPathDist method;

@@ -19,13 +19,9 @@ public class DGraph implements graph, Serializable {
 
 	@Override
 	public edge_data getEdge(int src, int dest) {
-<<<<<<< HEAD
 		if(!graph.containsKey(src)) throw new RuntimeException("Error: the sorce node is not in the graph!");
-		if(!((node) graph.get(src)).getNeighbors().containsKey(dest)) throw new RuntimeException("Error: the destination node is not in the graph!");
-		return ((node) graph.get(src)).getNeighbors().get(dest);
-=======
+		if(!((Node) graph.get(src)).getNeighbors().containsKey(dest)) throw new RuntimeException("Error: the destination node is not in the graph!");
 		return ((Node) graph.get(src)).getNeighbors().get(dest);
->>>>>>> a9032e4190c1ed11148d390bd4633529357c75a0
 	}
 
 	@Override
