@@ -1,7 +1,7 @@
 package algorithms;
 
 import dataStructure.DGraph;
-import dataStructure.node;
+import dataStructure.Node;
 
 public class Test {
 
@@ -32,11 +32,11 @@ public class Test {
 
 
 		DGraph g = new DGraph();
-		node n1 = new node(0);
-		node n2 = new node(1);
-		node n3 = new node(2);
-		node n4 = new node(3);
-		node n5 = new node(4);
+		Node n1 = new Node(0);
+		Node n2 = new Node(1);
+		Node n3 = new Node(2);
+		Node n4 = new Node(3);
+		Node n5 = new Node(4);
 		g.addNode(n1);
 		g.addNode(n2);
 		g.addNode(n3);
