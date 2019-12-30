@@ -10,7 +10,6 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.PriorityQueue;
-
 import dataStructure.DGraph;
 import dataStructure.Node;
 import dataStructure.graph;
@@ -25,8 +24,17 @@ import dataStructure.node_data;
  */
 
 public class Graph_Algo implements graph_algorithms{
-	private DGraph g;
+	DGraph g;
+	/*
+	 * Default constructor
+	 */
+	public Graph_Algo() {
+		this.g = new DGraph();
+	}
 
+	/*
+	 * Set this graph to the parameter's graph
+	 */
 
 	public DGraph getGraph() {
 		return this.getG();
@@ -232,11 +240,7 @@ class nodeComparator implements Comparator<Node>{
 			return -1;
 	}
 
-	@Override
-	public int compare(algorithms.Node arg0, algorithms.Node arg1) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+
 }
 
 

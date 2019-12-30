@@ -10,6 +10,7 @@ import java.util.List;
 
 
 class DGraphTest {
+	DGraph g = new DGraph();
 
 	node_data n4;
 	node_data n5;
@@ -20,33 +21,16 @@ class DGraphTest {
 	@BeforeEach
 
 	void init() {
-		DGraph g1 = new DGraph();
-		n4 = new Node(1,new Point3D(50, 10),1.5);
-		n5 = new Node(2,new Point3D(10, 10),2.5);
-		n6 = new Node(3,new Point3D(-50, -40),2.5);
-		n7 = new Node(4,new Point3D(33, 25),2);
-		n8 = new Node(5,new Point3D(0, 75),1);
-		n9 = new Node(7,new Point3D(33, 50),4);
-		g1.addNode(n4);
-		g1.addNode(n5);
-		g1.addNode(n6);
-		g1.addNode(n7);
-		g1.addNode(n8);
-		g1.addNode(n9);
-		for(int i=0;i<5;i++) {
-			g1.connect(i, i+1, 2.5);
-		}
 
-		DGraph g2=new DGraph();
-		g2.addNode(new Node(0,new Point3D(0,0),6)); 
-		g2.addNode(new Node(1,new Point3D(-10,-10),3)); 
-		g2.addNode(new Node(2,new Point3D(0,20),1)); 
-		g2.addNode(new Node(3,new Point3D(10,10),2)); 
-		g2.addNode(new Node(4,new Point3D(20,0),4)); 
-		g2.addNode(new Node(5,new Point3D(10,-10),8)); 
-		g2.addNode(new Node(6,new Point3D(0,-20),10)); 
-		g2.addNode(new Node(7,new Point3D(-10,10),2.5)); 
-		g2.addNode(new Node(8,new Point3D(-20,0),7)); 
+
+		DGraph g2=g;
+		n4=	g2.addNode(new Node(0,new Point3D(0,0),6)); 
+		n5=g2.addNode(new Node(1,new Point3D(-10,-10),3)); 
+		n6=g2.addNode(new Node(2,new Point3D(0,20),1)); 
+		n7=g2.addNode(new Node(3,new Point3D(10,10),2)); 
+		n8=g2.addNode(new Node(4,new Point3D(20,0),4)); 
+		n9=g2.addNode(new Node(5,new Point3D(10,-10),8)); 
+
 		for(int i=1;i<9;i++) {
 			g2.connect(0, i, 3);
 		}
@@ -58,12 +42,13 @@ class DGraphTest {
 
 	@Test
 	void testGetNode1() {
-		DGraph g2=new DGraph();
+		DGraph g2 = g;
+
 		assertEquals(n4,g2.getNode(1));
 	}
 	@Test
 	void testGetNode() {
-		DGraph g4=new DGraph();
+		DGraph g4=g;
 
 		for(int j=0;j<5;j++) {
 			assertEquals(g4.getNode(j).getKey(),j);
@@ -71,7 +56,7 @@ class DGraphTest {
 	}
 	@Test
 	void testGetEdge() {
-		DGraph g3=new DGraph();
+		DGraph g3=g;
 
 		for(int j=0;j<5;j++) {
 			assertEquals(g3.getEdge(j, j+1).getDest(),j+1);
@@ -86,7 +71,7 @@ class DGraphTest {
 	}
 	@Test
 	void testConnect() {
-		DGraph g5=new DGraph();
+		DGraph g5=g;
 
 		g5.connect(0, 3, 1);
 		g5.connect(3, 4, 5);
@@ -101,7 +86,7 @@ class DGraphTest {
 	}
 	@Test
 	void getVgetEtest() {
-		DGraph g6= new DGraph();
+		DGraph g6=g;
 		Collection<node_data> nod=g6.getV();
 		for(node_data a:nod) {
 			Collection<edge_data> edg=g6.getE(a.getKey());
@@ -118,7 +103,7 @@ class DGraphTest {
 	@Test
 	void testremoveNodeAndEdgeTest() {
 
-		DGraph g7=new DGraph();
+		DGraph g7=g;
 		assertEquals(g7.nodeSize(),9);
 		assertEquals(g7.edgeSize(),8);
 
@@ -149,7 +134,7 @@ class DGraphTest {
 	}
 	@Test
 	void testGetMC() {
-		DGraph g8=new DGraph();
+		DGraph g8=g;
 		assertEquals(g8.getMC(),17);//9 nodes + 8 edges = 17 changes
 		g8.removeNode(0);
 		assertEquals(g8.getMC(),18);//remove node = 1 change
