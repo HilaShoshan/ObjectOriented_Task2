@@ -188,6 +188,7 @@ public class Graph_Algo implements graph_algorithms{
 
 	@Override
 	public List<node_data> shortestPath(int src, int dest) {
+		shortestPathDist(src, dest);
 		Node d = (Node)this.getG().getNode(dest); //convert to the node with the key dest;
 		String[] pathArr = d.getInfo().split(",");
 		List<node_data> path = new ArrayList<node_data>();

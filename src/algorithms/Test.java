@@ -98,16 +98,17 @@ public class Test {
         Graph_Algo ga = new Graph_Algo();
         ga.init(g);
 
-        System.out.println("test: " + ga.shortestPathDist(0,2));
-        System.out.println("list test: " + ga.shortestPath(0, 2));
+        System.out.println("shortestPathDist: " + ga.shortestPathDist(0,2));
+        System.out.println("shortestPath: " + ga.shortestPath(0, 2));
         List<Integer> list = new ArrayList<Integer>();
         list.add(2);
         list.add(4);
         list.add(0);
-        System.out.println(ga.TSP(list));
-        Iterator<node_data> itr = ga.TSP(list).iterator();
+        List<node_data> l = ga.TSP(list);
+        System.out.println("TSP:" + l);
+        Iterator<node_data> itr = l.iterator();
         while(itr.hasNext())
-            System.out.print(((Node)(itr.next())).getKey() +",");
+            System.out.print(((Node)(itr.next())).getKey() + ",");
 
         /*g.removeNode(2);
         ga.init(g);
