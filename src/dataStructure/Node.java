@@ -5,6 +5,11 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 
+/**
+ * This class implements node_data interface, and representing a Node:
+ * Node is a vertex, in a graph for example, and has key (ID: unique to every node).
+ * there are some more attributes to the node, that will help us to implement the algorithms in the rest of our project.
+ */
 public class Node implements node_data, Comparator<Object> {
 
     private int key;
