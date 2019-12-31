@@ -202,21 +202,14 @@ public class Graph_Algo implements graph_algorithms{
 		Iterator<Integer> itr = targets.iterator();
 		List<node_data> pathRes = new ArrayList<node_data>(); //the returned list of all the vertexes we visited 
 		int current, next;
-		String [] arr;
 		while(itr.hasNext()) {
 			current = itr.next();
 			if(!itr.hasNext()) break;
 			next = itr.next();
 			Node n = (Node)g.getNode(next);
 			if(!n.getIsVisit()){
-				if(shortestPath(current, next) == null) return null; //**
-				arr = n.getInfo().split(",");
-				for(int i=0; i<arr.length; i++) {
-					Node tmp = (Node)g.getNode(Integer.parseInt(arr[i]));
-					tmp.setIsVisit(true);
-					pathRes.add(tmp);
-				}
-			}else {
+				if (findPath(pathRes, current, next, n)) return null;
+			} else {
 				while(n.getIsVisit()) {
 					if(itr.hasNext()) {
 						next = itr.next();
@@ -224,17 +217,22 @@ public class Graph_Algo implements graph_algorithms{
 					}
 					else break;
 				}
-				if(shortestPath(current, next) == null) return null; 
-				arr = n.getInfo().split(",");
-				for(int i=0; i<arr.length; i++) {
-					Node tmp = (Node)g.getNode(Integer.parseInt(arr[i]));
-					tmp.setIsVisit(true);
-					pathRes.add(tmp);
-				}
+				if (findPath(pathRes, current, next, n)) return null;
 			}
 		}
 		return pathRes;
+	}
 
+	private boolean findPath(List<node_data> pathRes, int current, int next, Node n) {
+		String[] arr;
+		if(shortestPath(current, next) == null) return true;
+		arr = n.getInfo().split(",");
+		for(int i=0; i<arr.length; i++) {
+			Node tmp = (Node)g.getNode(Integer.parseInt(arr[i]));
+			tmp.setIsVisit(true);
+			pathRes.add(tmp);
+		}
+		return false;
 	}
 
 	@Override
