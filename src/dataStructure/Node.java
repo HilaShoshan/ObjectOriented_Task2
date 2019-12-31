@@ -3,6 +3,7 @@ package dataStructure;
 import utils.Point3D;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Iterator;
 
 public class Node implements node_data, Comparator<Object> {
 
@@ -43,8 +44,17 @@ public class Node implements node_data, Comparator<Object> {
         this.neighbors = cloneNeighbors(copy.neighbors);
     }
 
-    private HashMap<Integer, edge_data> cloneNeighbors(HashMap<Integer, edge_data> neigh) {
-		return null;
+    private HashMap<Integer, edge_data> cloneNeighbors(HashMap<Integer, edge_data> edges) {
+        HashMap<Integer, edge_data> copyHash = new HashMap<Integer, edge_data>();
+        Iterator<Integer> itr = edges.keySet().iterator();
+        edge e;
+        int next;
+        while (itr.hasNext()) {
+            next = itr.next();
+            e = new edge((edge) edges.get(next)); //sent to the copy constructor of edge.
+            copyHash.put(next, e); //put in the new HashMap
+        }
+        return copyHash;
 	}
 
 	@Override
