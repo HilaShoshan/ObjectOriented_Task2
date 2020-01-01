@@ -3,10 +3,14 @@ package dataStructure;
 import utils.Point3D;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Iterator;
 
-
+/**
+ * This class implements node_data interface, and representing a Node:
+ * Node is a vertex, in a graph for example, and has key (ID: unique to every node).
+ * there are some more attributes to the node, that will help us to implement the algorithms in the rest of our project.
+ */
 public class Node implements node_data, Comparator<Object> {
-
 
     private int key;
     private double weight; //a variable that will save the distances at shortestPathDist method;
@@ -42,9 +46,23 @@ public class Node implements node_data, Comparator<Object> {
         this.info = copy.info;
         this.tag = copy.tag;
         this.isVisit = copy.isVisit;
+        this.neighbors = cloneNeighbors(copy.neighbors);
     }
 
-    @Override
+    private HashMap<Integer, edge_data> cloneNeighbors(HashMap<Integer, edge_data> edges) {
+        HashMap<Integer, edge_data> copyHash = new HashMap<Integer, edge_data>();
+        Iterator<Integer> itr = edges.keySet().iterator();
+        edge e;
+        int next;
+        while (itr.hasNext()) {
+            next = itr.next();
+            e = new edge((edge) edges.get(next)); //sent to the copy constructor of edge.
+            copyHash.put(next, e); //put in the new HashMap
+        }
+        return copyHash;
+	}
+
+	@Override
     public int getKey() {
         return this.key;
     }
