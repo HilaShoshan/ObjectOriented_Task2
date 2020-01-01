@@ -11,30 +11,36 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 public class Graph_GUI extends JFrame implements ActionListener, MouseListener {
+
     Graph_Algo ga;
 
+    //constructor
     public Graph_GUI() {
         this.ga = new Graph_Algo();
         init();
     }
-    private void draw(){
-        StdDraw.setCanvasSize(600,700);
-        StdDraw.setScale(-10,10);
 
+    private void drawGraph() {
+        StdDraw.setCanvasSize(800,700);
+        StdDraw.setScale(-10,10);
         StdDraw.setPenColor(Color.black);
-        StdDraw.setPenRadius(0.04);
-        StdDraw.line(2,3,4,-2);
+        StdDraw.setPenRadius(0.005);
     }
 
     private void init() {
         this.setVisible(true);
-        this.setSize(500, 500);
+        this.setSize(700, 800);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         MenuBar menuBar = new MenuBar();
-        Menu menu = new Menu("Menu");
-        menuBar.add(menu);
+        Menu menu1 = new Menu("graph");
+        Menu menu2 = new Menu("algorithms");
+        menuBar.add(menu1);
+        menuBar.add(menu2);
         this.setMenuBar(menuBar);
+
+        MenuItem item = new MenuItem("show graph");
+        item.addActionListener(this);
 
         MenuItem item1 = new MenuItem("save");
         item1.addActionListener(this);
@@ -42,19 +48,25 @@ public class Graph_GUI extends JFrame implements ActionListener, MouseListener {
         MenuItem item2 = new MenuItem("load");
         item2.addActionListener(this);
 
-        menu.add(item1);
-        menu.add(item2);
+        menu1.add(item);
+        menu1.add(item1);
+        menu1.add(item2);
 
         this.addMouseListener(this);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        System.out.println( e.getActionCommand());
-        System.out.println( e.getSource());
+        //graph menu
+        if(e.getActionCommand() == "show graph") { //*********
+            this.drawGraph();
+        }
         if(e.getActionCommand() == "save") {
-            String s = (String) JOptionPane.showInputDialog(this, "hello");
-            this.draw();
+            String name = (String)JOptionPane.showInputDialog(this, "write the name of the file you want to save: ");
+            ga.save(name);
+        }
+        if(e.getActionCommand() == "load") {
+            
         }
     }
 
