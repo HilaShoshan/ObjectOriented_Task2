@@ -67,6 +67,12 @@ public class Graph_GUI extends JFrame implements ActionListener, MouseListener {
         MenuItem item7 = new MenuItem("copy");
         item7.addActionListener(this);
 
+        menu2.add(item3);
+        menu2.add(item4);
+        menu2.add(item5);
+        menu2.add(item6);
+        menu2.add(item7);
+
         this.addMouseListener(this);
     }
 
