@@ -18,8 +18,8 @@ class DGraphTest {
 	node_data n7;
 	node_data n8;
 	node_data n9;
+	
 	@BeforeEach
-
 	void init() {
 
 

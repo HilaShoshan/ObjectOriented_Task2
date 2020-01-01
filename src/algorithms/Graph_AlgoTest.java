@@ -8,13 +8,13 @@ import com.sun.javafx.geom.Edge;
 import java.util.ArrayList;
 import java.util.List;
 import algorithms.Graph_Algo;
-import dataStructure.DGraph;
 import dataStructure.Node;
 import dataStructure.edge;
 import dataStructure.edge_data;
 import dataStructure.graph;
 import dataStructure.node_data;
 import utils.Point3D;
+import dataStructure.DGraph;
 
 class Graph_AlgoTest {
 
