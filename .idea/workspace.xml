@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="8778c29b-f86c-45d1-8734-49b3241daade" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gui/Graph_GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/Graph_GUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/algorithms/Graph_AlgoTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/algorithms/Graph_AlgoTest.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -55,7 +55,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.tester">
+  <component name="RunManager" selected="JUnit.Graph_AlgoTest.testIsConnected">
     <configuration name="Test" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="algorithms.Test" />
       <module name="ObjectOriented_Task2" />
@@ -82,8 +82,25 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="Graph_AlgoTest.testIsConnected" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ObjectOriented_Task2" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="algorithms.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="algorithms" />
+      <option name="MAIN_CLASS_NAME" value="algorithms.Graph_AlgoTest" />
+      <option name="METHOD_NAME" value="testIsConnected" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.Graph_AlgoTest.testIsConnected" />
         <item itemvalue="Application.tester" />
         <item itemvalue="Application.Test" />
       </list>
@@ -103,7 +120,7 @@
       <workItem from="1577369999039" duration="4233000" />
       <workItem from="1577466594828" duration="24607000" />
       <workItem from="1577725871093" duration="1180000" />
-      <workItem from="1577793658635" duration="13274000" />
+      <workItem from="1577793658635" duration="15528000" />
     </task>
     <servers />
   </component>
