@@ -29,7 +29,7 @@ public class Graph_GUI extends JFrame implements ActionListener, MouseListener {
 
     private void init() {
         this.setVisible(true);
-        this.setSize(700, 800);
+        this.setSize(700, 600);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         MenuBar menuBar = new MenuBar();
@@ -52,6 +52,21 @@ public class Graph_GUI extends JFrame implements ActionListener, MouseListener {
         menu1.add(item1);
         menu1.add(item2);
 
+        MenuItem item3 = new MenuItem("isConnected");
+        item3.addActionListener(this);
+
+        MenuItem item4 = new MenuItem("shortestPathDist");
+        item4.addActionListener(this);
+
+        MenuItem item5 = new MenuItem("shortestPath");
+        item5.addActionListener(this);
+
+        MenuItem item6 = new MenuItem("TSP");
+        item6.addActionListener(this);
+
+        MenuItem item7 = new MenuItem("copy");
+        item7.addActionListener(this);
+
         this.addMouseListener(this);
     }
 
@@ -66,7 +81,7 @@ public class Graph_GUI extends JFrame implements ActionListener, MouseListener {
             ga.save(name);
         }
         if(e.getActionCommand() == "load") {
-            
+
         }
     }
 
