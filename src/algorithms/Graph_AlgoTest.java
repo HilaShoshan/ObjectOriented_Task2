@@ -1,3 +1,4 @@
+/*
 package algorithms;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -35,8 +36,8 @@ class Graph_AlgoTest {
 	@Test
 	void testSaveAndfile_name() {
 		Graph_Algo ga1 = new Graph_Algo();
-		ga1.g.addNode(new Node(4,3.5,new Point3D(15, 15)));
-		ga1.g.addNode(new Node(5,2,new Point3D(5, 5)));
+		ga1.g.addNode(new Node(4,new Point3D(15, 15)));
+		ga1.g.addNode(new Node(5,new Point3D(5, 5)));
 		ga1.g.connect(4, 5, 2);
 		ga1.save("JunitTest");
 		Graph_Algo ga2 = new Graph_Algo();
@@ -48,10 +49,12 @@ class Graph_AlgoTest {
 			assertEquals(true, ed.getSrc() == 4 && ed.getDest() == 5);
 		}
 	}
-	/**
+	*/
+/**
 	 * Init a graph from file
 	 * @param file_name
-	 */
+	 *//*
+
 
 	@Test
 	void testIsConnected() {
@@ -71,12 +74,14 @@ class Graph_AlgoTest {
 	}
 
 
-	/**
+	*/
+/**
 	 * returns the length of the shortest path between src to dest
 	 * @param src - start node
 	 * @param dest - end (target) node
 	 * @return
-	 */
+	 *//*
+
 
 
 	@Test
@@ -217,3 +222,4 @@ class Graph_AlgoTest {
 
 
 
+*/

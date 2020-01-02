@@ -29,9 +29,8 @@ public class Node implements node_data, Comparator<Object> {
         isVisit = false;
     }
 
-    public Node(int key, double weight, Point3D location) {
+    public Node(int key, Point3D location) {
         this.key = key;
-        this.weight = weight;
         this.location = location;
     }
 
