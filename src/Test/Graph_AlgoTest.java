@@ -1,48 +1,38 @@
 package Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-import java.util.Collection;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import com.sun.javafx.geom.Edge;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+
+import org.junit.jupiter.api.Test;
+
 import algorithms.Graph_Algo;
+import dataStructure.DGraph1;
 import dataStructure.Node;
 import dataStructure.edge;
 import dataStructure.edge_data;
 import dataStructure.graph;
 import dataStructure.node_data;
 import utils.Point3D;
-import dataStructure.DGraph1;
 
 class Graph_AlgoTest {
 
-	static Node n1=new Node ();
-	static Node n2=new Node ();
-	static Node n3=new Node ();
-	static Node n4=new Node ();
-	static DGraph1 ga1=new DGraph1();
 
-	public static Graph_Algo ga() {
-		ga1.addNode(n1);
-		ga1.addNode(n2);
-		ga1.addNode(n3);
-		ga1.addNode(n4);
-		ga1.connect(0, 2, 2);
-		ga1.connect(0, 1, 3);
-		ga1.connect(2, 1, 22);
-		ga1.connect(2, 0,2);
-		ga1.connect(1, 2,3);
-		ga1.connect(1, 0, 4);
-		Graph_Algo ga2 = new Graph_Algo();
-		ga2.init(ga1);
-		return ga2;
+	@Test
+	void initTest() {
+	
+		Graph_Algo g1 = new Graph_Algo();
+		DGraph1 dg = new DGraph1();
+		g1.init(dg);
+		boolean ans = g1.g == dg;
+		assertEquals(true, ans);
 	}
 
 	@Test
 	void testSaveAndfile_name() {
-		Graph_Algo ga1 =  ga();
+		Graph_Algo ga1 = new Graph_Algo();
 		ga1.g.addNode(new Node(4,new Point3D(15, 15)));
 		ga1.g.addNode(new Node(5,new Point3D(5, 5)));
 		ga1.g.connect(4, 5, 2);
@@ -63,17 +53,19 @@ class Graph_AlgoTest {
 
 	@Test
 	void testIsConnected() {
-		Graph_Algo ga1 = ga();
+		Graph_Algo ga = new Graph_Algo();
 		for(int i=0;i<11;i++) {//0 1 2 3 4 5 6 7 8 9 10
-			ga1.g.addNode(new Node(i,new Point3D(i, i)));
+			ga.g.addNode(new Node(i,new Point3D(i, i)));
 		}
 		for(int j=0;j<10;j++) {
-			ga1.g.connect(j,j+1 , 2);
+			ga.g.connect(j,j+1 , 2);
 		}
-		assertEquals(false,ga1.isConnected());
-		ga1.g.connect(10, 0, 50);
-		assertEquals(true,ga1.isConnected());
+		assertEquals(false,ga.isConnected());
+		ga.g.connect(10, 0, 50);
+		assertEquals(true,ga.isConnected());
 	}
+
+
 	/**
 	 * returns the length of the shortest path between src to dest
 	 * @param src - start node
@@ -81,35 +73,36 @@ class Graph_AlgoTest {
 	 * @return
 	 */
 
+
 	@Test
 	void testShortestPathDist() {
-		Graph_Algo ga3 = ga();
-		ga3.g.addNode(new Node(0,new Point3D(-50, -50)));
-		ga3.g.addNode(new Node(0,new Point3D(50, 50)));
-		ga3.g.addNode(new Node(0,new Point3D(50, -50)));
-		ga3.g.addNode(new Node(0,new Point3D(-50, 50)));
-		ga3.g.addNode(new Node(0,new Point3D(0, -75)));
-		ga3.g.addNode(new Node(0,new Point3D(0, 75)));
-		ga3.g.addNode(new Node(0,new Point3D(0, 0)));
-		ga3.g.connect(0,3, 2);
-		ga3.g.connect(3,5, 1);
-		ga3.g.connect(5,1, 5);
-		ga3.g.connect(1,2, 0);
-		ga3.g.connect(2,4, 6);
-		ga3.g.connect(4,0, 3);
-		ga3.g.connect(6,4, 4);
-		ga3.g.connect(6,5, 2.5);
-
-		assertEquals(ga3.shortestPathDist(0, 2),8);
-		assertEquals(ga3.shortestPathDist(6, 2),7.5);
-		assertEquals(ga3.shortestPathDist(6, 3),9);
-		assertEquals(ga3.shortestPathDist(0, 6),-1);//Error: can't get to node 6
-
+		Graph_Algo ga = new Graph_Algo();
+		ga.g.addNode(new Node(0,new Point3D(-50, -50)));
+		ga.g.addNode(new Node(0,new Point3D(50, 50)));
+		ga.g.addNode(new Node(0,new Point3D(50, -50)));
+		ga.g.addNode(new Node(0,new Point3D(-50, 50)));
+		ga.g.addNode(new Node(0,new Point3D(0, -75)));
+		ga.g.addNode(new Node(0,new Point3D(0, 75)));
+		ga.g.addNode(new Node(0,new Point3D(0, 0)));
+		ga.g.connect(0,3, 2);
+		ga.g.connect(3,5, 1);
+		ga.g.connect(5,1, 5);
+		ga.g.connect(1,2, 0);
+		ga.g.connect(2,4, 6);
+		ga.g.connect(4,0, 3);
+		ga.g.connect(6,4, 4);
+		ga.g.connect(6,5, 2.5);
+		
+		assertEquals(ga.shortestPathDist(0, 2),8);
+		assertEquals(ga.shortestPathDist(6, 2),7.5);
+		assertEquals(ga.shortestPathDist(6, 3),9);
+		assertEquals(ga.shortestPathDist(0, 6),-1);//Error: can't get to node 6
+	
 	}
 
 	@Test
 	void testShortestPath() {
-		Graph_Algo ga4 = ga();
+		Graph_Algo ga4 = new Graph_Algo();
 		ga4.g.addNode(new Node(0,new Point3D(0, 0)));
 		ga4.g.addNode(new Node(1,new Point3D(-50,-50)));
 		ga4.g.addNode(new Node(2,new Point3D(0,75)));
@@ -142,7 +135,7 @@ class Graph_AlgoTest {
 		ans1.add(ga4.g.getNode(2));
 		List<node_data> ans2=ga4.shortestPath(6, 2);
 		assertEquals(ans1,ans2);
-
+	
 		ans1.clear();
 		List<node_data> ans3=ga4.shortestPath(0, 4);	
 		ans1.add(ga4.g.getNode(0));
@@ -155,23 +148,22 @@ class Graph_AlgoTest {
 
 	@Test
 	void testTSP() {
-		System.out.println(ga());
-		Graph_Algo ga6 = ga();
-		//		ga6.g.addNode(new Node(0,new Point3D(0, 0)));
-		//		ga6.g.addNode(new Node(1,new Point3D(-10,-10)));
-		//		ga6.g.addNode(new Node(2,new Point3D(10,10)));
-		//		ga6.g.addNode(new Node(3,new Point3D(-10,10)));
-		//		ga6.g.addNode(new Node(4,new Point3D(0,-20)));
-		//		ga6.g.addNode(new Node(5,new Point3D(10, -10)));
-		//
-		//		ga6.g.connect(0,1, 1);
-		//		ga6.g.connect(1,0, 1.5);
-		//		ga6.g.connect(0,2, 0);
-		//		ga6.g.connect(2,0, 2);
-		//		ga6.g.connect(0,3, 5);
-		//		ga6.g.connect(3,0, 4);
-		//		ga6.g.connect(0,4, 2);
-		//		ga6.g.connect(4,0, 3);
+		Graph_Algo ga6 = new Graph_Algo();
+		ga6.g.addNode(new Node(0,new Point3D(0, 0)));
+		ga6.g.addNode(new Node(1,new Point3D(-10,-10)));
+		ga6.g.addNode(new Node(2,new Point3D(10,10)));
+		ga6.g.addNode(new Node(3,new Point3D(-10,10)));
+		ga6.g.addNode(new Node(4,new Point3D(0,-20)));
+		ga6.g.addNode(new Node(5,new Point3D(10, -10)));
+
+		ga6.g.connect(0,1, 1);
+		ga6.g.connect(1,0, 1.5);
+		ga6.g.connect(0,2, 0);
+		ga6.g.connect(2,0, 2);
+		ga6.g.connect(0,3, 5);
+		ga6.g.connect(3,0, 4);
+		ga6.g.connect(0,4, 2);
+		ga6.g.connect(4,0, 3);
 		ga6.g.connect(0,5, 1.2);
 		ga6.g.connect(5,0, 2.5);
 
@@ -193,9 +185,9 @@ class Graph_AlgoTest {
 		myAns.add(ga6.g.getNode(4));
 		myAns.add(ga6.g.getNode(0));
 		myAns.add(ga6.g.getNode(5));
-
+				
 		assertEquals(myAns,ans);
-
+		
 		ga6.g.removeNode(0);
 		ans=ga6.TSP(targets);
 		assertEquals(ans,null);//Error: deleted all edges, there is no path between the nodes
@@ -204,7 +196,7 @@ class Graph_AlgoTest {
 
 	@Test
 	void testCopy() {
-		Graph_Algo g6 = ga();
+		Graph_Algo g6 =new Graph_Algo();
 		g6.getG().addNode(new Node());
 		g6.getG().addNode(new Node(1,new Point3D(8, 8)));
 		g6.getG().connect(0, 1, 2);
