@@ -123,8 +123,27 @@ public class Graph_GUI extends JFrame implements ActionListener, MouseListener {
         }
         //add/remove menu
         if(e.getActionCommand() == "isConnected") {
-
+            boolean b = ga.isConnected();
+            if(b) {
+                JOptionPane.showMessageDialog(this, "The graph is connected :)",
+                        "isConnected result", JOptionPane.PLAIN_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "The graph is NOT connected !",
+                        "isConnected result", JOptionPane.PLAIN_MESSAGE);
+            }
         }
+        if(e.getActionCommand() == "shortestPathDist") {
+            String path = (String)JOptionPane.showInputDialog(this,
+                    "write the source and the destination keys with a ',' between them, like this: src,dest ");
+            String[] s = path.split(",");
+            if(s.length != 2) throw new RuntimeException("please choose 2 keys");
+            int key1 = Integer.parseInt(s[0]);
+            int key2 = Integer.parseInt(s[1]);
+            double d = ga.shortestPathDist(key1,key2);
+            JOptionPane.showMessageDialog(this, "The length of the shortest path in your graph is: ",
+                    "shortestPathDist result", JOptionPane.PLAIN_MESSAGE);
+        }
+
     }
 
     @Override

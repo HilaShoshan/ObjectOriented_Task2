@@ -24,7 +24,17 @@ import dataStructure.node_data;
  */
 
 public class Graph_Algo implements graph_algorithms{
+
 public DGraph1 g ;	/*
+
+	private DGraph g;
+
+	//getter
+	public DGraph getGraph() {
+		return this.g;
+	}
+	/*
+
 	 * Default constructor
 	 */
 	public Graph_Algo() {
@@ -32,9 +42,11 @@ public DGraph1 g ;	/*
 	}
 
 
+
 	public DGraph1 getGraph() {
 		return this.getG();
 	}
+
 
 	@Override
 	public void init(graph g) {
