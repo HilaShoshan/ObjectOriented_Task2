@@ -5,7 +5,7 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
-import dataStructure.DGraph;
+import dataStructure.DGraph1;
 import dataStructure.Node;
 import dataStructure.node_data;
 import javafx.geometry.Point3D;
@@ -14,7 +14,7 @@ import dataStructure.Node;
 public class Test {
 
     public static void amichaiTest() {
-        DGraph test = new DGraph();
+        DGraph1 test = new DGraph1();
         for (int i = 0; i<1000;i++){
             //Point3D tP = new Point3D(10,i);
             Node n = new Node(i);
@@ -52,7 +52,7 @@ public class Test {
     }
 
     public static void test1() {
-        DGraph g = new DGraph();
+        DGraph1 g = new DGraph1();
         Node n1 = new Node(0);
         Node n2 = new Node(1);
         Node n3 = new Node(2);
@@ -76,7 +76,7 @@ public class Test {
     }
 
     public static void test2() {
-        DGraph g = new DGraph();
+        DGraph1 g = new DGraph1();
         Node n1 = new Node(0);
         Node n2 = new Node(1);
         Node n3 = new Node(2);
