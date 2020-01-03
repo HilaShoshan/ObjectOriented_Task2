@@ -7,9 +7,12 @@ In this project we work on directed graphs.
 
 we have 4 pacejes:
 
-dataStructure- which conteins the classes: Node- represent the graph vertexs .
-                                           edge- the graph edges .
-                                           DGraph- do functions on the graph.
+dataStructure- which conteins the classes: *Node- represent the graph vertexs .
+
+                                           *edge- the graph edges .
+                                           
+                                           *DGraph- do functions on the graph.
+                                           
                                            
 algorithms-  which conteins the class: Graph_Algo-  cheack if the graph connected.
                                                      what the shortest path fron one vertex to another vertex and what the distance.
