@@ -54,10 +54,12 @@ public class Graph_GUI extends JFrame implements ActionListener, MouseListener {
             paintPath(path, minX, maxX, maxY);
         for(node_data n : ga.getGraph().getV()) {
             for(int dest : ((Node)n).getNeighbors().keySet()) {
-                String e = n.getKey() + "," + dest; //e = edge that begins on n and ends on dest.
+                String e = n.getKey() + "," + dest; //e = string representing an edge that begins in n and ends in dest.
+                String e_reverse = dest + "," + n.getKey();
                 Point3D p_src = n.getLocation();
                 Point3D p_dest = ga.getGraph().getNode(dest).getLocation();
-                if(!algo || !path.toString().contains(e)) { //checks if e is part of the path (so there is already an orange line there).
+                //checks if e is part of the path (so there is already an orange line there).
+                if(!algo || (!likeString(path).contains(e) && !likeString(path).contains(e_reverse))) {
                     StdDraw.setPenColor(Color.PINK);
                     StdDraw.setPenRadius(0.006);
                     StdDraw.line(p_src.x(), p_src.y(), p_dest.x(), p_dest.y());
@@ -90,23 +92,40 @@ public class Graph_GUI extends JFrame implements ActionListener, MouseListener {
         }
     }
 
+    private String likeString(List<node_data> path) {
+        Iterator<node_data> itr = path.iterator();
+        String res = "";
+        while (itr.hasNext()) {
+            res += itr.next().getKey() + ",";
+        }
+        return res;
+    }
+
     private void paintPath(List<node_data> path, double minX, double maxX, double maxY) {
         StdDraw.setPenColor(Color.orange);
         StdDraw.setPenRadius(0.006);
         Iterator<node_data> itr = path.iterator();
+        node_data prev = null, curr;
+        if(itr.hasNext()) prev = itr.next();
         while(itr.hasNext()) {
-            node_data current = itr.next();
-            Point3D p_curr = current.getLocation();
-            if(itr.hasNext()) {
-                node_data next = itr.next();
-                Point3D p_next = next.getLocation();
-                StdDraw.line(p_curr.x(), p_curr.y(), p_next.x(), p_next.y());
-            }
+            curr = itr.next();
+            Point3D p_prev = prev.getLocation();
+            Point3D p_curr = curr.getLocation();
+            StdDraw.line(p_curr.x(), p_curr.y(), p_prev.x(), p_prev.y());
+            prev = curr;
         }
         double midX = (minX + maxX) /2;
         StdDraw.setPenColor(Color.ORANGE);
         StdDraw.setPenRadius(0.08);
-        StdDraw.text(midX, maxY + 0.15, "The shortest path: " + path.toString());
+        String p = "";
+        node_data n;
+        itr = path.iterator();
+        while(itr.hasNext()) {
+           n = itr.next();
+           if(itr.hasNext()) p += n.getKey() + " --> "; //we're not in the last one
+           else p += n.getKey();
+        }
+        StdDraw.text(midX, maxY + 0.6, "The shortest path: " + p);
     }
 
     private void init() {
@@ -117,7 +136,7 @@ public class Graph_GUI extends JFrame implements ActionListener, MouseListener {
         MenuBar menuBar = new MenuBar();
         Menu menu1 = new Menu("graph");
         Menu menu2 = new Menu("algorithms");
-        Menu menu3 = new Menu("add/remove");
+        Menu menu3 = new Menu("add / remove");
         menuBar.add(menu1);
         menuBar.add(menu2);
         menuBar.add(menu3);
@@ -209,7 +228,11 @@ public class Graph_GUI extends JFrame implements ActionListener, MouseListener {
         }
         if(e.getActionCommand() == "shortestPath") {
             String[] s = askPath();
-            if(s.length != 2) throw new RuntimeException("please choose 2 keys");
+            if(s.length != 2) {
+                JOptionPane.showMessageDialog(this,"Please choose 2 keys, according to the request ","Error",
+                        JOptionPane.ERROR_MESSAGE);
+                throw new RuntimeException("please choose 2 keys");
+            }
             int key1 = Integer.parseInt(s[0]);
             int key2 = Integer.parseInt(s[1]);
             List<node_data> path = this.ga.shortestPath(0,2);
@@ -228,7 +251,7 @@ public class Graph_GUI extends JFrame implements ActionListener, MouseListener {
             }
             drawGraph(true, ga.TSP(reach));
         }
-        //add/remove menu
+        //add / remove menu
     }
 
     private String[] askPath() {

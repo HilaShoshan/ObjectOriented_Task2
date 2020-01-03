@@ -127,12 +127,13 @@ public class Test {
         g.connect(0,1, 8);
         g.connect(1,0, 15);
         g.connect(2,3, 4);
-        g.connect(1,2, 7);
+        //g.connect(1,2, 7);
 
         Graph_Algo ga = new Graph_Algo();
         ga.init(g);
 
         System.out.println(ga.shortestPathDist(0,2));
+        if(ga.shortestPath(0,2) == null) System.out.println("its null bitch");
     }
 
     public static void main(String[] args) {
