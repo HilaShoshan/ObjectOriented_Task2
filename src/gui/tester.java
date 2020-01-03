@@ -16,6 +16,10 @@ public class tester
         gg.getGA().getGraph().addNode(n2);
         gg.getGA().getGraph().addNode(n3);
         gg.getGA().getGraph().addNode(n4);
+        gg.getGA().getGraph().connect(0,1, 8);
+        gg.getGA().getGraph().connect(1,0, 15);
+        gg.getGA().getGraph().connect(2,3, 4);
+        gg.getGA().getGraph().connect(1,2, 7);
 
 
     }

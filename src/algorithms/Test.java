@@ -8,8 +8,8 @@ import java.util.List;
 import dataStructure.DGraph;
 import dataStructure.Node;
 import dataStructure.node_data;
-import javafx.geometry.Point3D;
 import dataStructure.Node;
+import utils.Point3D;
 
 public class Test {
 
@@ -115,7 +115,30 @@ public class Test {
         System.out.println(ga.TSP(list));*/
     }
 
+    public static void test3() {
+        Node n1 = new Node(0, new utils.Point3D(3,5));
+        Node n2 = new Node(1, new utils.Point3D(-2,5));
+        Node n3 = new Node(2, new utils.Point3D(3,-5));
+        Node n4 = new Node(3, new Point3D(2,7));
+        DGraph g = new DGraph();
+        g.addNode(n1);
+        g.addNode(n2);
+        g.addNode(n3);
+        g.addNode(n4);
+        g.connect(0,1, 8);
+        g.connect(1,0, 15);
+        g.connect(2,3, 4);
+        g.connect(1,2, 7);
+
+        Graph_Algo ga = new Graph_Algo();
+        ga.init(g);
+
+        System.out.println(ga.shortestPathDist(0,2));
+        System.out.println(ga.shortestPathDist(0,2));
+    }
+
 	public static void main(String[] args) {
-        test2();
+        test3();
+        //test2();
     }
 }

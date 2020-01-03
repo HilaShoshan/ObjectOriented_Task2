@@ -12,6 +12,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 public class Graph_GUI extends JFrame implements ActionListener, MouseListener {
 
@@ -28,19 +31,82 @@ public class Graph_GUI extends JFrame implements ActionListener, MouseListener {
         init();
     }
 
-    private void drawGraph() {
-        StdDraw.setCanvasSize(800,700);
-        StdDraw.setXscale(-10,10);
-        StdDraw.setYscale(-10,10);
+    private void drawGraph(boolean algo, List<node_data> path) {
+        StdDraw.setCanvasSize(800,600);
+
+        //find the scale size
+        double INF = Double.MAX_VALUE, MINF = Double.MIN_VALUE;
+        double minX = INF, maxX = MINF, minY = INF, maxY = MINF;
+        for(node_data n : ga.getGraph().getV()) {
+            Point3D p = n.getLocation();
+            if(p.x() > maxX) maxX = p.x();
+            if(p.x() < minX) minX = p.x();
+            if(p.y() > maxY) maxY = p.y();
+            if(p.y() < minY) minY = p.y();
+        }
+        int space = 3; //a number that we'll add to the length & width to be space
+        StdDraw.setXscale(minX - space, maxX + space);
+        StdDraw.setYscale(minY - space, maxY + space);
+
+        //draw all the edges that come out of each vertex:
+
+        if(algo)  //if the method was triggered by an algorithm (shortestPath/TSP)
+            paintPath(path, minX, maxX, maxY);
+        for(node_data n : ga.getGraph().getV()) {
+            for(int dest : ((Node)n).getNeighbors().keySet()) {
+                String e = n.getKey() + "," + dest; //e = edge that begins on n and ends on dest.
+                Point3D p_src = n.getLocation();
+                Point3D p_dest = ga.getGraph().getNode(dest).getLocation();
+                if(!algo || !path.toString().contains(e)) { //checks if e is part of the path (so there is already an orange line there).
+                    StdDraw.setPenColor(Color.PINK);
+                    StdDraw.setPenRadius(0.006);
+                    StdDraw.line(p_src.x(), p_src.y(), p_dest.x(), p_dest.y());
+                }
+                //calculate the space to take from dest, to put the arrow
+                double x_space = p_src.x() * 0.05 + p_dest.x() * 0.95;
+                double y_space = p_src.y() * 0.05 + p_dest.y() * 0.95;
+                //add a triangle that represents the head of the arrow
+                StdDraw.picture(x_space, y_space,"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQOAV_8t4Cpta3s1rFNJSvA9OyGs9eyKfuV4Zb0sPE8-3mEZj3O&s",
+                        0.2, 0.4);
+                //calculate the space to take from dest, to put the edge's weight
+                x_space = p_src.x() * 0.22 + p_dest.x() * 0.88;
+                y_space = p_src.y() * 0.22 + p_dest.y() * 0.88;
+                //draw the edge's weight
+                StdDraw.setPenColor(Color.BLACK);
+                StdDraw.setPenRadius(0.04);
+                String w = Double.toString(ga.getGraph().getEdge(n.getKey(), dest).getWeight());
+                StdDraw.text(x_space,y_space + 0.2, w);
+            }
+        }
+
+        //draw each vertex & it's key
         for(node_data n : ga.getGraph().getV()) {
             StdDraw.setPenColor(Color.black);
-            StdDraw.setPenRadius(0.06);
-            Point3D p =n.getLocation();
+            StdDraw.setPenRadius(0.05);
+            Point3D p = n.getLocation();
             StdDraw.point(p.x(),p.y());
             StdDraw.setPenColor(Color.WHITE);
-            StdDraw.setPenRadius(0.06);
-            StdDraw.text(p.x(),p.y(),n.getKey()+"");
+            StdDraw.text(p.x(), p.y(),n.getKey() + "");
         }
+    }
+
+    private void paintPath(List<node_data> path, double minX, double maxX, double maxY) {
+        StdDraw.setPenColor(Color.orange);
+        StdDraw.setPenRadius(0.006);
+        Iterator<node_data> itr = path.iterator();
+        while(itr.hasNext()) {
+            node_data current = itr.next();
+            Point3D p_curr = current.getLocation();
+            if(itr.hasNext()) {
+                node_data next = itr.next();
+                Point3D p_next = next.getLocation();
+                StdDraw.line(p_curr.x(), p_curr.y(), p_next.x(), p_next.y());
+            }
+        }
+        double midX = (minX + maxX) /2;
+        StdDraw.setPenColor(Color.ORANGE);
+        StdDraw.setPenRadius(0.08);
+        StdDraw.text(midX, maxY + 0.15, "The shortest path: " + path.toString());
     }
 
     private void init() {
@@ -111,7 +177,7 @@ public class Graph_GUI extends JFrame implements ActionListener, MouseListener {
     public void actionPerformed(ActionEvent e) {
         //graph menu
         if(e.getActionCommand() == "show graph") {
-            this.drawGraph();
+            this.drawGraph(false, null);
         }
         if(e.getActionCommand() == "save") {
             String name = (String)JOptionPane.showInputDialog(this, "write the name of the file you want to save: ");
@@ -121,7 +187,7 @@ public class Graph_GUI extends JFrame implements ActionListener, MouseListener {
             String name = (String)JOptionPane.showInputDialog(this, "write the name of the file you want to save: ");
             ga.init(name);
         }
-        //add/remove menu
+        //algorithms menu
         if(e.getActionCommand() == "isConnected") {
             boolean b = ga.isConnected();
             if(b) {
@@ -133,17 +199,45 @@ public class Graph_GUI extends JFrame implements ActionListener, MouseListener {
             }
         }
         if(e.getActionCommand() == "shortestPathDist") {
-            String path = (String)JOptionPane.showInputDialog(this,
-                    "write the source and the destination keys with a ',' between them, like this: src,dest ");
-            String[] s = path.split(",");
+            String[] s = askPath();
             if(s.length != 2) throw new RuntimeException("please choose 2 keys");
             int key1 = Integer.parseInt(s[0]);
             int key2 = Integer.parseInt(s[1]);
             double d = ga.shortestPathDist(key1,key2);
-            JOptionPane.showMessageDialog(this, "The length of the shortest path in your graph is: ",
-                    "shortestPathDist result", JOptionPane.PLAIN_MESSAGE);
+            String message = "The length of the shortest path in your graph is: " + d;
+            JOptionPane.showMessageDialog(this, message,"shortestPathDist result", JOptionPane.PLAIN_MESSAGE);
         }
+        if(e.getActionCommand() == "shortestPath") {
+            String[] s = askPath();
+            if(s.length != 2) throw new RuntimeException("please choose 2 keys");
+            int key1 = Integer.parseInt(s[0]);
+            int key2 = Integer.parseInt(s[1]);
+            List<node_data> path = this.ga.shortestPath(0,2);
+            drawGraph(true, path);
+        }
+        if(e.getActionCommand() == "TSP") {
+            String path = (String)JOptionPane.showInputDialog(this,
+                    "write a list of integers representing the keys\n" +
+                            "of all the vertexes you want to reach.\n" +
+                            "Format: int,int,..,int, WITHOUT SPACES");
+            String[] s = path.split(",");
+            List<Integer> reach = new ArrayList<Integer>();
+            for(int i = 0; i < s.length; i++) {
+                int k = Integer.parseInt(s[i]);
+                reach.add(k);
+            }
+            drawGraph(true, ga.TSP(reach));
+        }
+        //add/remove menu
+    }
 
+    private String[] askPath() {
+        String path = (String)JOptionPane.showInputDialog(this,
+                "write the source and the destination keys (integers)\n" +
+                        "with a ',' between them, WITHOUT SPACES.\n " +
+                        "[like this: src,dest]");
+        String[] s = path.split(",");
+        return s;
     }
 
     @Override
