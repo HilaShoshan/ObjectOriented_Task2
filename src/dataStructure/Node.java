@@ -1,7 +1,6 @@
 package dataStructure;
 
 import utils.Point3D;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 
@@ -10,7 +9,7 @@ import java.util.Iterator;
  * Node is a vertex, in a graph for example, and has key (ID: unique to every node).
  * there are some more attributes to the node, that will help us to implement the algorithms in the rest of our project.
  */
-public class Node implements node_data, Comparator<Object> {
+public class Node implements node_data, Comparable<Object> {
 
     private int key;
     private double weight; //a variable that will save the distances at shortestPathDist method;
@@ -122,32 +121,23 @@ public class Node implements node_data, Comparator<Object> {
         this.isVisit = b;
     }
 
-    //implements Compare method in Comparator
-
-    /**
-     * this method compare between two objects (it will be nodes).
-     * used for the priorityQueue in shortestPath method (Graph_Algo class).
-     * the comparison is made by dis parameter of the nodes (bigger dis --> bigger node).
-     * @param o1 = the first node to compare
-     * @param o2 = the second node
-     * @return: 0 - if the nodes are similar
-     *          1 - if the first one is bigger
-     *          -1 - else
+    /** (implements compareTo method in Comparable interface).
+     * This method compare between two objects (it will be nodes).
+     * The two objects are: this Node & another one we get like object.
+     * It used for the priorityQueue in shortestPath method (Graph_Algo class).
+     * The comparison is made by weight parameter of the Nodes (bigger weight --> bigger Node).
+     * @param obj = the Node to compare with
+     * @return: 1 - if this Node is bigger
+     *          0 - if the given Node is bigger
      */
     @Override
-    public int compare(Object o1,Object o2){
-        if(!(o1 instanceof Node) || !(o2 instanceof Node))
-            throw new RuntimeException("CAN NOT COMPARE: one or more of the objects are not instanceof node!");
-
-        Node n1=(Node)o1;
-        Node n2=(Node)o2;
-
-        if(n1.getWeight() == n2.getWeight())
-            return 0;
-        else if(n1.getWeight() > n2.getWeight())
+    public int compareTo(Object obj) {
+        if(!(obj instanceof Node))
+            throw new RuntimeException("CAN NOT COMPARE: not instanceof Node!");
+        if(this.weight > ((Node)obj).weight)
             return 1;
-        else
-            return -1;
+        return 0;
     }
+
 }
 

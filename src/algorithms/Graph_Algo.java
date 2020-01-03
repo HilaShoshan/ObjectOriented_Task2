@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.PriorityQueue;
@@ -137,26 +136,30 @@ public class Graph_Algo implements graph_algorithms{
 
 	@Override
 	public double shortestPathDist(int src, int dest) {
-		PriorityQueue<Node> pQueue = new PriorityQueue<Node>(getG().nodeSize(), new nodeComparator()); //a PriorityQueue that saves all the vertex by the weights.
+		//a PriorityQueue that saves all the vertex by the weights.
+		//PriorityQueue<Node> pQueue = new PriorityQueue<Node>(getG().nodeSize(), new nodeComparator());
+		PriorityQueue<Node> pQueue = new PriorityQueue<Node>();
 		weightAll(src, pQueue);
-		Node d = (Node)this.getG().getNode(dest);
+		Node d = (Node)this.getG().getNode(dest); //convert to the node with the key dest;
 		Node s = (Node)this.getG().getNode(src); //convert to the node with the key src;
 		s.setInfo("");
+		pQueue.add(s); //for start: the PQueue contains only the source (starting) Node.
 		Node current;
 		String newInfo;
 		String lastInfo;
 		Iterator<Integer> itr;
 		while(!pQueue.isEmpty()) {
-			current = pQueue.peek();
+			current = pQueue.poll(); //the vertex with the lowest weight will get out the queue each time
 			newInfo = Integer.toString(current.getKey());
-			String[] spl = current.getInfo().split(",");
-			lastInfo = spl[spl.length - 1];
-			if(!lastInfo.equals(newInfo))
-				current.setInfo(current.getInfo() + newInfo + ",");
-			pQueue.poll(); //the vertex with the lowest weight will get out the queue each time
-			itr = current.getNeighbors().keySet().iterator();
-			while(itr.hasNext())
-				relaxation(current, (Node)getG().getNode(itr.next()), pQueue);
+			if(current.getInfo() != null) {
+				String[] spl = current.getInfo().split(",");
+				lastInfo = spl[spl.length - 1];
+				if(!lastInfo.equals(newInfo))
+					current.setInfo(current.getInfo() + newInfo + ",");
+				itr = current.getNeighbors().keySet().iterator();
+				while(itr.hasNext())
+					relaxation(current, (Node)getG().getNode(itr.next()), pQueue);
+			}
 		}
 		return d.getWeight();
 	}
@@ -169,7 +172,6 @@ public class Graph_Algo implements graph_algorithms{
 			if(next.getKey() != src)
 				next.setWeight(Double.MAX_VALUE); //the initial distances of all the other vertexes are INFINITY.
 			else next.setWeight(0);
-			pQueue.add(next);
 		}
 	}
 
@@ -188,6 +190,7 @@ public class Graph_Algo implements graph_algorithms{
 	public List<node_data> shortestPath(int src, int dest) {
 		shortestPathDist(src, dest);
 		Node d = (Node)this.getG().getNode(dest); //convert to the node with the key dest;
+		if(d.getInfo() == null) return null;
 		String[] pathArr = d.getInfo().split(",");
 		List<node_data> path = new ArrayList<node_data>();
 		for(int i=0; i<pathArr.length; i++) {
@@ -257,22 +260,5 @@ public class Graph_Algo implements graph_algorithms{
 	}
 }
 
-class nodeComparator implements Comparator<Node>{
-
-	public int compare(Node o1,Node o2){
-
-		Node n1=(Node)o1;
-		Node n2=(Node)o2;
-
-		if(n1.getWeight() == n2.getWeight())
-			return 0;
-		else if(n1.getWeight() > n2.getWeight())
-			return 1;
-		else
-			return -1;
-	}
-
-
-}
 
 

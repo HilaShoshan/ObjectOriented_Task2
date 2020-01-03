@@ -133,7 +133,6 @@ public class Test {
         ga.init(g);
 
         System.out.println(ga.shortestPathDist(0,2));
-        System.out.println(ga.shortestPathDist(0,2));
     }
 
     public static void main(String[] args) {
