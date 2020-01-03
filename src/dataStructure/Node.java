@@ -59,9 +59,9 @@ public class Node implements node_data, Comparator<Object> {
             copyHash.put(next, e); //put in the new HashMap
         }
         return copyHash;
-	}
+    }
 
-	@Override
+    @Override
     public int getKey() {
         return this.key;
     }
@@ -115,13 +115,13 @@ public class Node implements node_data, Comparator<Object> {
     }
 
     public boolean getIsVisit() {
-    	return this.isVisit;
+        return this.isVisit;
     }
-    
+
     public void setIsVisit(boolean b) {
-    	this.isVisit = b; 
+        this.isVisit = b;
     }
-    
+
     //implements Compare method in Comparator
 
     /**

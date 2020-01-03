@@ -29,7 +29,7 @@ public class Range {
 	public double get_length() {
 		return _max-_min;
 	}
-	
+
 	private void set_max(double _max) {
 		this._max = _max;
 	}
@@ -39,5 +39,5 @@ public class Range {
 	private void set_min(double _min) {
 		this._min = _min;
 	}
-	
+
 }

@@ -28,17 +28,17 @@ public interface graph {
 	 * @param n
 	 */
 	public void addNode(node_data n);
-/**
- * Connect an edge with weight w between node src to node dest.
- * * Note: this method should run in O(1) time.
- * @param src - the source of the edge.
- * @param dest - the destination of the edge.
- * @param w - positive weight representing the cost (aka time, price, etc) between src-->dest.
- */
+	/**
+	 * Connect an edge with weight w between node src to node dest.
+	 * * Note: this method should run in O(1) time.
+	 * @param src - the source of the edge.
+	 * @param dest - the destination of the edge.
+	 * @param w - positive weight representing the cost (aka time, price, etc) between src-->dest.
+	 */
 	public static void connect(int src, int dest, double w) {
-	// TODO Auto-generated method stub
-	
-}
+		// TODO Auto-generated method stub
+
+	}
 	/**
 	 * This method return a pointer (shallow copy) for the
 	 * collection representing all the nodes in the graph. 
@@ -75,15 +75,15 @@ public interface graph {
 	 * @return
 	 */
 	public int nodeSize();
-	/** 
+	/**
 	 * return the number of edges (assume directional graph).
 	 * Note: this method should run in O(1) time.
 	 * @return
 	 */
 	public int edgeSize();
-/**
- * return the Mode Count - for testing changes in the graph.
- * @return
- */
+	/**
+	 * return the Mode Count - for testing changes in the graph.
+	 * @return
+	 */
 	public int getMC();
 }

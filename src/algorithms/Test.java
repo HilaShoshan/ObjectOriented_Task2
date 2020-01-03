@@ -5,16 +5,15 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
-import dataStructure.DGraph1;
+import dataStructure.DGraph;
 import dataStructure.Node;
 import dataStructure.node_data;
-import dataStructure.Node;
 import utils.Point3D;
 
 public class Test {
 
     public static void amichaiTest() {
-        DGraph1 test = new DGraph1();
+        DGraph test = new DGraph();
         for (int i = 0; i<1000;i++){
             //Point3D tP = new Point3D(10,i);
             Node n = new Node(i);
@@ -52,7 +51,7 @@ public class Test {
     }
 
     public static void test1() {
-        DGraph1 g = new DGraph1();
+        DGraph g = new DGraph();
         Node n1 = new Node(0);
         Node n2 = new Node(1);
         Node n3 = new Node(2);
@@ -76,7 +75,7 @@ public class Test {
     }
 
     public static void test2() {
-        DGraph1 g = new DGraph1();
+        DGraph g = new DGraph();
         Node n1 = new Node(0);
         Node n2 = new Node(1);
         Node n3 = new Node(2);
@@ -137,7 +136,7 @@ public class Test {
         System.out.println(ga.shortestPathDist(0,2));
     }
 
-	public static void main(String[] args) {
+    public static void main(String[] args) {
         test3();
         //test2();
     }

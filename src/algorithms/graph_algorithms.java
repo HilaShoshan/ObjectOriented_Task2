@@ -23,7 +23,7 @@ public interface graph_algorithms {
 	 * @param g
 	 */
 	public void init(graph g);
-	/** 
+	/**
 	 * Compute a deep copy of this graph.
 	 * @return
 	 */
@@ -34,15 +34,15 @@ public interface graph_algorithms {
 	 */
 	public void init(String file_name);
 	/** Saves the graph to a file.
-	 * 
+	 *
 	 * @param file_name
 	 */
 	public void save(String file_name);
-/**
- * Returns true if and only if (iff) there is a valid path from EVREY node to each
- * other node. NOTE: assume directional graph - a valid path (a-->b) does NOT imply a valid path (b-->a).
- * @return
- */
+	/**
+	 * Returns true if and only if (iff) there is a valid path from EVREY node to each
+	 * other node. NOTE: assume directional graph - a valid path (a-->b) does NOT imply a valid path (b-->a).
+	 * @return
+	 */
 	public boolean isConnected();
 	/**
 	 * returns the length of the shortest path between src to dest

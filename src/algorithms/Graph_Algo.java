@@ -10,7 +10,8 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.PriorityQueue;
-import dataStructure.DGraph1;
+
+import dataStructure.DGraph;
 import dataStructure.Node;
 import dataStructure.graph;
 import dataStructure.node_data;
@@ -24,9 +25,6 @@ import dataStructure.node_data;
  */
 
 public class Graph_Algo implements graph_algorithms{
-
-public DGraph1 g ;	/*
-
 	private DGraph g;
 
 	//getter
@@ -34,34 +32,26 @@ public DGraph1 g ;	/*
 		return this.g;
 	}
 	/*
-
 	 * Default constructor
 	 */
 	public Graph_Algo() {
-		this.g = new DGraph1();
+		this.g = new DGraph();
 	}
-
-
-
-	public DGraph1 getGraph() {
-		return this.getG();
-	}
-
 
 	@Override
 	public void init(graph g) {
-		this.setG((DGraph1) g);
+		this.setG((DGraph) g);
 	}
 
 	@Override
 	public void init(String file_name) {
-		DGraph1 t = null;
+		DGraph t = null;
 		try
 		{
 			FileInputStream file = new FileInputStream(file_name);
 			ObjectInputStream in = new ObjectInputStream(file);
 
-			t = (DGraph1)in.readObject();
+			t = (DGraph)in.readObject();
 
 			in.close();
 			file.close();
@@ -209,7 +199,7 @@ public DGraph1 g ;	/*
 	@Override
 	public List<node_data> TSP(List<Integer> targets) {
 		Iterator<Integer> itr = targets.iterator();
-		List<node_data> pathRes = new ArrayList<node_data>(); //the returned list of all the vertexes we visited 
+		List<node_data> pathRes = new ArrayList<node_data>(); //the returned list of all the vertexes we visited
 		int current, next;
 		while(itr.hasNext()) {
 			current = itr.next();
@@ -247,7 +237,7 @@ public DGraph1 g ;	/*
 	@Override
 	public graph copy() {
 		Graph_Algo ga = new Graph_Algo();
-		DGraph1 newG = new DGraph1();
+		DGraph newG = new DGraph();
 		Iterator<node_data> itr = this.g.getV().iterator();
 		Node copy;
 		while(itr.hasNext()) {
@@ -258,11 +248,11 @@ public DGraph1 g ;	/*
 		return newG;
 	}
 
-	public DGraph1 getG() {
+	public DGraph getG() {
 		return g;
 	}
 
-	public void setG(DGraph1 g) {
+	public void setG(DGraph g) {
 		this.g = g;
 	}
 }
