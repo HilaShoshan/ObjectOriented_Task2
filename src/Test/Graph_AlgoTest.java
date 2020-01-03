@@ -1,3 +1,4 @@
+/*
 package Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -46,10 +47,12 @@ class Graph_AlgoTest {
 			assertEquals(true, ed.getSrc() == 4 && ed.getDest() == 5);
 		}
 	}
-	/**
+	*/
+/**
 	 * Init a graph from file
 	 * @param file_name
-	 */
+	 *//*
+
 
 	@Test
 	void testIsConnected() {
@@ -66,12 +69,14 @@ class Graph_AlgoTest {
 	}
 
 
-	/**
+	*/
+/**
 	 * returns the length of the shortest path between src to dest
 	 * @param src - start node
 	 * @param dest - end (target) node
 	 * @return
-	 */
+	 *//*
+
 
 
 	@Test
@@ -208,4 +213,4 @@ class Graph_AlgoTest {
 			assertEquals(true, edg.getSrc() == 0 && edg.getDest() == 1);
 		}
 	}
-}
+}*/

@@ -2,17 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8778c29b-f86c-45d1-8734-49b3241daade" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/dataStructure/DGraph.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/algorithms/Graph_Algo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/algorithms/Graph_Algo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/algorithms/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/algorithms/Test.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/algorithms/graph_algorithms.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/algorithms/graph_algorithms.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/dataStructure/Node.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dataStructure/Node.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/dataStructure/edge_data.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dataStructure/edge_data.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/dataStructure/graph.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dataStructure/graph.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/dataStructure/node_data.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dataStructure/node_data.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/Point3D.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/Point3D.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/Range.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/Range.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Test/Graph_AlgoTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Test/Graph_AlgoTest.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -129,7 +120,7 @@
       <workItem from="1577369999039" duration="4233000" />
       <workItem from="1577466594828" duration="24607000" />
       <workItem from="1577725871093" duration="1180000" />
-      <workItem from="1577793658635" duration="40280000" />
+      <workItem from="1577793658635" duration="40754000" />
     </task>
     <servers />
   </component>
