@@ -10,8 +10,7 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.PriorityQueue;
-
-import dataStructure.DGraph;
+import dataStructure.DGraph1;
 import dataStructure.Node;
 import dataStructure.graph;
 import dataStructure.node_data;
@@ -25,6 +24,9 @@ import dataStructure.node_data;
  */
 
 public class Graph_Algo implements graph_algorithms{
+
+public DGraph1 g ;	/*
+
 	private DGraph g;
 
 	//getter
@@ -32,26 +34,34 @@ public class Graph_Algo implements graph_algorithms{
 		return this.g;
 	}
 	/*
+
 	 * Default constructor
 	 */
 	public Graph_Algo() {
-		this.g = new DGraph();
+		this.g = new DGraph1();
 	}
+
+
+
+	public DGraph1 getGraph() {
+		return this.getG();
+	}
+
 
 	@Override
 	public void init(graph g) {
-		this.setG((DGraph) g);
+		this.setG((DGraph1) g);
 	}
 
 	@Override
 	public void init(String file_name) {
-		DGraph t = null;
+		DGraph1 t = null;
 		try
 		{
 			FileInputStream file = new FileInputStream(file_name);
 			ObjectInputStream in = new ObjectInputStream(file);
 
-			t = (DGraph)in.readObject();
+			t = (DGraph1)in.readObject();
 
 			in.close();
 			file.close();
@@ -237,7 +247,7 @@ public class Graph_Algo implements graph_algorithms{
 	@Override
 	public graph copy() {
 		Graph_Algo ga = new Graph_Algo();
-		DGraph newG = new DGraph();
+		DGraph1 newG = new DGraph1();
 		Iterator<node_data> itr = this.g.getV().iterator();
 		Node copy;
 		while(itr.hasNext()) {
@@ -248,11 +258,11 @@ public class Graph_Algo implements graph_algorithms{
 		return newG;
 	}
 
-	public DGraph getG() {
+	public DGraph1 getG() {
 		return g;
 	}
 
-	public void setG(DGraph g) {
+	public void setG(DGraph1 g) {
 		this.g = g;
 	}
 }

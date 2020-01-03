@@ -1,8 +1,10 @@
-package Testing;
+package Test;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import dataStructure.DGraph;
+import dataStructure.DGraph1;
+import dataStructure.Node;
+import dataStructure.edge_data;
 import dataStructure.node_data;
 import utils.Point3D;
 import java.util.Collection;
@@ -10,30 +12,47 @@ import java.util.List;
 
 
 class DGraphTest {
-	DGraph g = new DGraph();
-
-	node_data n4;
-	node_data n5;
-	node_data n6;
-	node_data n7;
-	node_data n8;
-	node_data n9;
 	
-	@BeforeEach
-	void init() {
 
 
-		DGraph g2=g;
-		n4=	g2.addNode(new Node(0,new Point3D(0,0),6)); 
-		n5=g2.addNode(new Node(1,new Point3D(-10,-10),3)); 
-		n6=g2.addNode(new Node(2,new Point3D(0,20),1)); 
-		n7=g2.addNode(new Node(3,new Point3D(10,10),2)); 
-		n8=g2.addNode(new Node(4,new Point3D(20,0),4)); 
-		n9=g2.addNode(new Node(5,new Point3D(10,-10),8)); 
+	
 
+	private DGraph1 getDGraph1() {
+		DGraph1 g = new DGraph1();
+
+		DGraph1 g2=g;
+		Node n4=new Node(0,new Point3D(-50,-50));
+		Node n5=new Node(1,new Point3D(0,75));
+		Node n6=new Node(2,new Point3D(50,50));
+		Node n7=new Node(3,new Point3D(50,-50));
+		Node n8=new Node(4,new Point3D(0,-75));
+		Node n9=new Node(5,new Point3D(-50,50));
+		g.addNode(n4);
+		g.addNode(n5);
+		g.addNode(n6);
+		g.addNode(n7);
+		g.addNode(n8);
+		g.addNode(n9);
+		for(int i=0;i<5;i++) {
+			g.connect(i, i+1, 2.5);
+		}
+		return g;
+	}
+	private DGraph1 getDGraph2() {
+		DGraph1 g2=new DGraph1();
+		g2.addNode(new Node(0,new Point3D(0,0))); 
+		g2.addNode(new Node(1,new Point3D(-10,-10))); 
+		g2.addNode(new Node(2,new Point3D(0,20))); 
+		g2.addNode(new Node(3,new Point3D(10,10))); 
+		g2.addNode(new Node(4,new Point3D(20,0))); 
+		g2.addNode(new Node(5,new Point3D(10,-10))); 
+		g2.addNode(new Node(6,new Point3D(0,-20))); 
+		g2.addNode(new Node(7,new Point3D(-10,10))); 
+		g2.addNode(new Node(8,new Point3D(-20,0))); 
 		for(int i=1;i<9;i++) {
 			g2.connect(0, i, 3);
 		}
+		return g2;
 	}
 	public void shortestPathToString(List<node_data> l){
 		String ans = "";
@@ -41,22 +60,8 @@ class DGraphTest {
 	}
 
 	@Test
-	void testGetNode1() {
-		DGraph g2 = g;
-
-		assertEquals(n4,g2.getNode(1));
-	}
-	@Test
-	void testGetNode() {
-		DGraph g4=g;
-
-		for(int j=0;j<5;j++) {
-			assertEquals(g4.getNode(j).getKey(),j);
-		}
-	}
-	@Test
 	void testGetEdge() {
-		DGraph g3=g;
+		DGraph1 g3= getDGraph1();
 
 		for(int j=0;j<5;j++) {
 			assertEquals(g3.getEdge(j, j+1).getDest(),j+1);
@@ -69,24 +74,10 @@ class DGraphTest {
 
 		fail("Not yet implemented");
 	}
-	@Test
-	void testConnect() {
-		DGraph g5=g;
 
-		g5.connect(0, 3, 1);
-		g5.connect(3, 4, 5);
-		g5.connect(4, 5, 1);
-		g5.connect(5, 2, 6);
-		//graph.connect(2, 3, 3);
-		g5.connect(3, 1, 4);
-		g5.connect(1, 0, 2);
-		g5.connect(3, 0, 10);
-
-		fail("Not yet implemented");
-	}
 	@Test
 	void getVgetEtest() {
-		DGraph g6=g;
+		DGraph1 g6=getDGraph1();
 		Collection<node_data> nod=g6.getV();
 		for(node_data a:nod) {
 			Collection<edge_data> edg=g6.getE(a.getKey());
@@ -103,7 +94,7 @@ class DGraphTest {
 	@Test
 	void testremoveNodeAndEdgeTest() {
 
-		DGraph g7=g;
+		DGraph1 g7=getDGraph1();
 		assertEquals(g7.nodeSize(),9);
 		assertEquals(g7.edgeSize(),8);
 
@@ -134,7 +125,7 @@ class DGraphTest {
 	}
 	@Test
 	void testGetMC() {
-		DGraph g8=g;
+		DGraph1 g8=getDGraph1();
 		assertEquals(g8.getMC(),17);//9 nodes + 8 edges = 17 changes
 		g8.removeNode(0);
 		assertEquals(g8.getMC(),18);//remove node = 1 change

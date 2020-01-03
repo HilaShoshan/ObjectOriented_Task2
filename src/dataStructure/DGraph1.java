@@ -4,7 +4,7 @@ import java.util.Collection;
 import java.io.Serializable;
 import java.util.HashMap;
 
-public class DGraph implements graph, Serializable {
+public class DGraph1 implements graph, Serializable {
 
 	HashMap<Integer, node_data> graph = new HashMap<Integer, node_data>();
 	private int nodeSize = 0;
