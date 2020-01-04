@@ -16,6 +16,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+/**
+ * This class implements
+ */
 public class Graph_GUI extends JFrame implements ActionListener, MouseListener {
 
     private Graph_Algo ga;
@@ -28,6 +31,11 @@ public class Graph_GUI extends JFrame implements ActionListener, MouseListener {
     //constructor
     public Graph_GUI() {
         this.ga = new Graph_Algo();
+        init();
+    }
+
+    public Graph_GUI(Graph_Algo ga) {
+        this.ga = ga;
         init();
     }
 
@@ -195,9 +203,8 @@ public class Graph_GUI extends JFrame implements ActionListener, MouseListener {
         menu3.add(item9);
         menu3.add(item10);
 
-        //StdDraw.picture(-10, -10, "http://www.up2me.co.il/imgs/22922760.png", 100, 200);
-        ImageTutorial it = new ImageTutorial();
-        it.pack();
+        //ImageTutorial it = new ImageTutorial();
+        //it.pack();
 
         this.addMouseListener(this);
     }
@@ -205,21 +212,21 @@ public class Graph_GUI extends JFrame implements ActionListener, MouseListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         //graph menu
-        if(e.getActionCommand() == "show graph") {
+        if (e.getActionCommand() == "show graph") {
             this.drawGraph(false, null);
         }
-        if(e.getActionCommand() == "save") {
-            String name = (String)JOptionPane.showInputDialog(this, "write the name of the file you want to save: ");
+        if (e.getActionCommand() == "save") {
+            String name = (String) JOptionPane.showInputDialog(this, "write the name of the file you want to save: ");
             ga.save(name);
         }
-        if(e.getActionCommand() == "load") {
-            String name = (String)JOptionPane.showInputDialog(this, "write the name of the file you want to save: ");
+        if (e.getActionCommand() == "load") {
+            String name = (String) JOptionPane.showInputDialog(this, "write the name of the file you want to save: ");
             ga.init(name);
         }
         //algorithms menu
-        if(e.getActionCommand() == "isConnected") {
+        if (e.getActionCommand() == "isConnected") {
             boolean b = ga.isConnected();
-            if(b) {
+            if (b) {
                 JOptionPane.showMessageDialog(this, "The graph is connected :)",
                         "isConnected result", JOptionPane.PLAIN_MESSAGE);
             } else {
@@ -227,41 +234,104 @@ public class Graph_GUI extends JFrame implements ActionListener, MouseListener {
                         "isConnected result", JOptionPane.PLAIN_MESSAGE);
             }
         }
-        if(e.getActionCommand() == "shortestPathDist") {
+        if (e.getActionCommand() == "shortestPathDist") {
             String[] s = askPath();
-            if(s.length != 2) throw new RuntimeException("please choose 2 keys");
+            if (s.length != 2) throwErr();
             int key1 = Integer.parseInt(s[0]);
             int key2 = Integer.parseInt(s[1]);
-            double d = ga.shortestPathDist(key1,key2);
-            String message = "The length of the shortest path in your graph is: " + d;
-            JOptionPane.showMessageDialog(this, message,"shortestPathDist result", JOptionPane.PLAIN_MESSAGE);
-        }
-        if(e.getActionCommand() == "shortestPath") {
-            String[] s = askPath();
-            if(s.length != 2) {
-                JOptionPane.showMessageDialog(this,"Please choose 2 keys, according to the request ","Error",
-                        JOptionPane.ERROR_MESSAGE);
-                throw new RuntimeException("please choose 2 keys"); //maybe askPath again? *********
+            try {
+                double d = ga.shortestPathDist(key1, key2);
+                String message = "The length of the shortest path in your graph is: " + d;
+                JOptionPane.showMessageDialog(this, message, "shortestPathDist result", JOptionPane.PLAIN_MESSAGE);
+            } catch (Exception err) {
+                throwErr();
             }
-            int key1 = Integer.parseInt(s[0]);
-            int key2 = Integer.parseInt(s[1]);
-            List<node_data> path = this.ga.shortestPath(key1,key2);
-            drawGraph(true, path);
         }
-        if(e.getActionCommand() == "TSP") {
-            String path = (String)JOptionPane.showInputDialog(this,
+        if (e.getActionCommand() == "shortestPath") {
+            String[] s = askPath();
+            if (s.length != 2) throwErr();
+            try {
+                int key1 = Integer.parseInt(s[0]);
+                int key2 = Integer.parseInt(s[1]);
+                List<node_data> path = this.ga.shortestPath(key1, key2);
+                drawGraph(true, path);
+            } catch (Exception err) {
+                throwErr();
+            }
+            ;
+        }
+        if (e.getActionCommand() == "TSP") {
+            String path = (String) JOptionPane.showInputDialog(this,
                     "write a list of integers representing the keys\n" +
                             "of all the vertexes you want to reach.\n" +
                             "Format: int,int,..,int, WITHOUT SPACES");
             String[] s = path.split(",");
             List<Integer> reach = new ArrayList<Integer>();
-            for(int i = 0; i < s.length; i++) {
-                int k = Integer.parseInt(s[i]);
-                reach.add(k);
+            try {
+                for (int i = 0; i < s.length; i++) {
+                    int k = Integer.parseInt(s[i]);
+                    reach.add(k);
+                }
+                drawGraph(true, ga.TSP(reach));
+            } catch (Exception err) {
+                JOptionPane.showMessageDialog(this, "Please choose targets, according to the request ", "Error",
+                        JOptionPane.ERROR_MESSAGE);
             }
-            drawGraph(true, ga.TSP(reach));
         }
         //add / remove menu
+        if (e.getActionCommand() == "addNode") {
+            String node = (String) JOptionPane.showInputDialog(this, "Write a node's key (ID - unique to every node)\n" +
+                    " plus 2 double numbers that represent the location [x,y]\n" +
+                    "of a node you want to add ");
+            try {
+                String[] spl = node.split(",");
+                int key = Integer.parseInt(spl[0]);
+                Point3D p = new Point3D(Double.parseDouble(spl[1]), Double.parseDouble(spl[2]));
+                ga.getG().addNode(new Node(key, p));
+                JOptionPane.showMessageDialog(this, "Successfully added", "Add status", JOptionPane.INFORMATION_MESSAGE);
+            } catch (Exception err) {throwErr2();}
+        }
+        if (e.getActionCommand() == "removeNode") {
+            String node = (String) JOptionPane.showInputDialog(this, "Write a node's key of a node you want to remove\n" +
+                    "(that already in the graph)");
+            try {
+                int key = Integer.parseInt(node);
+                ga.getG().removeNode(key);
+                JOptionPane.showMessageDialog(this, "Successfully removed", "Remove status", JOptionPane.INFORMATION_MESSAGE);
+            } catch (Exception err) {throwErr2();}
+        }
+        if (e.getActionCommand() == "connect") {
+            String edge = (String) JOptionPane.showInputDialog(this, "Choose source and destination nodes on the graph\n" +
+                    "that you want to connect plus the weight of the edge");
+            try {
+                String[] spl = edge.split(",");
+                int src = Integer.parseInt(spl[0]);
+                int dest = Integer.parseInt(spl[1]);
+                double weight = Double.parseDouble(spl[2]);
+                ga.getG().connect(src,dest,weight);
+                JOptionPane.showMessageDialog(this, "Successfully connect", "Connect status", JOptionPane.INFORMATION_MESSAGE);
+            } catch (Exception err) {throwErr2();}
+        }
+        if(e.getActionCommand() == "removeEdge") {
+            String edge = (String) JOptionPane.showInputDialog(this, "Choose source and destination nodes on the graph\n" +
+                    "that you want to remove the edge between them");
+            try {
+                String[] spl = edge.split(",");
+                int src = Integer.parseInt(spl[0]);
+                int dest = Integer.parseInt(spl[1]);
+                ga.getG().removeEdge(src,dest);
+                JOptionPane.showMessageDialog(this, "Successfully remove", "Remove status", JOptionPane.INFORMATION_MESSAGE);
+            } catch (Exception err) {throwErr2();}
+        }
+    }
+
+    private void throwErr() {
+        JOptionPane.showMessageDialog(this,"Please choose 2 keys, according to the request ","Error",
+                JOptionPane.ERROR_MESSAGE);
+    }
+
+    private void throwErr2() {
+        JOptionPane.showMessageDialog(this, "Please follow the instructions", "Error", JOptionPane.ERROR_MESSAGE);
     }
 
     private String[] askPath() {
@@ -298,17 +368,17 @@ public class Graph_GUI extends JFrame implements ActionListener, MouseListener {
 
     }
 
-    private class ImageTutorial extends JFrame {
+    /*private class ImageTutorial extends JFrame {
         private ImageIcon image;
         private JLabel label;
 
         ImageTutorial() {
             setLayout(new FlowLayout());
-            image = new ImageIcon(getClass().getResource("http://www.up2me.co.il/imgs/22922760.png"));
+            image = new ImageIcon(getClass().getResource("[url=https://ibb.co/34v67QY][img]https://i.ibb.co/ckwf1VX/monhe.png[/img][/url]"));//("http://www.up2me.co.il/imgs/22922760.png"));
             label = new JLabel(image);
             add(label);
         }
-    }
+    }*/
 }
 
 
