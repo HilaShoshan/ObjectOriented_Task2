@@ -19,13 +19,14 @@ public class DGraph implements graph, Serializable {
 
     @Override
     public edge_data getEdge(int src, int dest) {
-        if(!graph.containsKey(src)) throw new RuntimeException("Error: the sorce node is not in the graph!");
+        if(!graph.containsKey(src)) throw new RuntimeException("Error: the source node is not in the graph!");
         if(!((Node) graph.get(src)).getNeighbors().containsKey(dest)) throw new RuntimeException("Error: the destination node is not in the graph!");
         return ((Node) graph.get(src)).getNeighbors().get(dest);
     }
 
     @Override
     public void addNode(node_data n) {
+        if(this.graph.containsKey(n.getKey())) throw new RuntimeException("There is already a Node with this ID, please chose another key.");
         this.graph.put(n.getKey(), (Node)n);
         this.nodeSize++;
         MC++;

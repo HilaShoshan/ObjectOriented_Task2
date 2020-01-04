@@ -175,9 +175,24 @@ public class Test {
         ga.shortestPath(3,0);
     }
 
+    public static void test5() {
+        Node n1 = new Node(1, new Point3D(3,5));
+        Node n2 = new Node(3, new Point3D(-2,5));
+        Node n3 = new Node(2, new Point3D(3,-5));
+        Node n4 = new Node(0, new Point3D(2,7));
+        Node n5 = new Node(3, new Point3D(1,0));
+        DGraph g = new DGraph();
+        g.addNode(n1);
+        g.addNode(n2);
+        g.addNode(n3);
+        g.addNode(n4);
+        g.addNode(n5);
+    }
+
     public static void main(String[] args) {
         //test3();
         //test2();
-        test4();
+        //test4();
+        test5();
     }
 }
