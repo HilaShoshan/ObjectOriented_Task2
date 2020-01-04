@@ -137,7 +137,6 @@ public class Graph_Algo implements graph_algorithms{
 	@Override
 	public double shortestPathDist(int src, int dest) {
 		//a PriorityQueue that saves all the vertex by the weights.
-		//PriorityQueue<Node> pQueue = new PriorityQueue<Node>(getG().nodeSize(), new nodeComparator());
 		PriorityQueue<Node> pQueue = new PriorityQueue<Node>();
 		weightAll(src, pQueue);
 		Node d = (Node)this.getG().getNode(dest); //convert to the node with the key dest;
@@ -201,27 +200,27 @@ public class Graph_Algo implements graph_algorithms{
 
 	@Override
 	public List<node_data> TSP(List<Integer> targets) {
-		Iterator<Integer> itr = targets.iterator();
 		List<node_data> pathRes = new ArrayList<node_data>(); //the returned list of all the vertexes we visited
 		setAllVisit(); //initialization
-		int current, next;
+		Iterator<Integer> itr = targets.iterator();
+		int current, prev = -1;
+		if(itr.hasNext()) prev = itr.next();
 		while(itr.hasNext()) {
 			current = itr.next();
-			if(!itr.hasNext()) break;
-			next = itr.next();
-			Node n = (Node)g.getNode(next);
-			if(!n.getIsVisit()){
-				if (findPath(pathRes, current, next, n)) return null;
+			Node curr = (Node)g.getNode(current);
+			if(!curr.getIsVisit()) {
+				if (findPath(pathRes, prev, current, curr)) return null;
 			} else {
-				while(n.getIsVisit()) {
+				while(curr.getIsVisit()) {
 					if(itr.hasNext()) {
-						next = itr.next();
-						n = (Node)g.getNode(next);
+						current = itr.next();
+						curr = (Node)g.getNode(current);
 					}
 					else break;
 				}
-				if (findPath(pathRes, current, next, n)) return null;
+				if (findPath(pathRes, prev, current, curr)) return null;
 			}
+			prev = current;
 		}
 		return pathRes;
 	}
@@ -243,8 +242,10 @@ public class Graph_Algo implements graph_algorithms{
 		arr = n.getInfo().split(",");
 		for(int i=0; i<arr.length; i++) {
 			Node tmp = (Node)g.getNode(Integer.parseInt(arr[i]));
-			tmp.setIsVisit(true);
-			pathRes.add(tmp);
+			if(pathRes.isEmpty() || (pathRes.get(pathRes.size() - 1).getKey() != tmp.getKey())) {
+				tmp.setIsVisit(true);
+				pathRes.add(tmp);
+			}
 		}
 		return false;
 	}

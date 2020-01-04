@@ -143,6 +143,7 @@ public class Test {
         l.add(1);
         l.add(3);
         for(node_data n : ga.TSP(l)) System.out.print(n.getKey() + ",");
+        System.out.println("");
         System.out.println("now remove 3 from list: TSP for 0,1");
 
         l.remove(2);
