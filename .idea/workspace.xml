@@ -3,6 +3,13 @@
   <component name="ChangeListManager">
     <list default="true" id="8778c29b-f86c-45d1-8734-49b3241daade" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graph" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Test/DgraphTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Test/DgraphTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/algorithms/Graph_Algo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/algorithms/Graph_Algo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/algorithms/Graph_AlgoTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/dataStructure/DGraph1.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/dataStructure/Node.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dataStructure/Node.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/dataStructure/edge.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dataStructure/edge.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/gui/Graph_GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/Graph_GUI.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -55,44 +62,81 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.tester">
-    <configuration name="Test" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="algorithms.Test" />
+  <component name="RunManager" selected="JUnit.DGraphTest">
+    <configuration name="DGraphTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ObjectOriented_Task2" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="algorithms.*" />
+          <option name="PATTERN" value="Test.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
+      <option name="PACKAGE_NAME" value="Test" />
+      <option name="MAIN_CLASS_NAME" value="Test.DGraphTest" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="tester" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="gui.tester" />
+    <configuration name="DGraphTest.testEdgeSize" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ObjectOriented_Task2" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="gui.*" />
+          <option name="PATTERN" value="Test.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
+      <option name="PACKAGE_NAME" value="Test" />
+      <option name="MAIN_CLASS_NAME" value="Test.DGraphTest" />
+      <option name="METHOD_NAME" value="testEdgeSize" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Graph_AlgoTest.testIsConnected" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="DGraphTest.testGetMC" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ObjectOriented_Task2" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="algorithms.*" />
+          <option name="PATTERN" value="Test.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="algorithms" />
-      <option name="MAIN_CLASS_NAME" value="algorithms.Graph_AlgoTest" />
-      <option name="METHOD_NAME" value="testIsConnected" />
+      <option name="PACKAGE_NAME" value="Test" />
+      <option name="MAIN_CLASS_NAME" value="Test.DGraphTest" />
+      <option name="METHOD_NAME" value="testGetMC" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DGraphTest.testNodeSize" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ObjectOriented_Task2" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="Test" />
+      <option name="MAIN_CLASS_NAME" value="Test.DGraphTest" />
+      <option name="METHOD_NAME" value="testNodeSize" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DGraphTest.testremoveNodeAndEdgeTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ObjectOriented_Task2" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="Test" />
+      <option name="MAIN_CLASS_NAME" value="Test.DGraphTest" />
+      <option name="METHOD_NAME" value="testremoveNodeAndEdgeTest" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -100,9 +144,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.tester" />
-        <item itemvalue="Application.Test" />
-        <item itemvalue="JUnit.Graph_AlgoTest.testIsConnected" />
+        <item itemvalue="JUnit.DGraphTest" />
+        <item itemvalue="JUnit.DGraphTest.testGetMC" />
+        <item itemvalue="JUnit.DGraphTest.testEdgeSize" />
+        <item itemvalue="JUnit.DGraphTest.testNodeSize" />
+        <item itemvalue="JUnit.DGraphTest.testremoveNodeAndEdgeTest" />
       </list>
     </recent_temporary>
   </component>
@@ -120,7 +166,7 @@
       <workItem from="1577369999039" duration="4233000" />
       <workItem from="1577466594828" duration="24607000" />
       <workItem from="1577725871093" duration="1180000" />
-      <workItem from="1577793658635" duration="70220000" />
+      <workItem from="1577793658635" duration="78458000" />
     </task>
     <servers />
   </component>

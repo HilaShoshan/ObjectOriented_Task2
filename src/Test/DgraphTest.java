@@ -1,26 +1,22 @@
 package Test;
 import static org.junit.jupiter.api.Assertions.*;
-import org.junit.jupiter.api.BeforeEach;
+
+import dataStructure.DGraph;
 import org.junit.jupiter.api.Test;
-import dataStructure.DGraph1;
 import dataStructure.Node;
 import dataStructure.edge_data;
 import dataStructure.node_data;
 import utils.Point3D;
+
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-
 class DGraphTest {
-	
 
-
-	
-
-	private DGraph1 getDGraph1() {
-		DGraph1 g = new DGraph1();
-
-		DGraph1 g2=g;
+	private DGraph getDGraph1() {
+		DGraph g = new DGraph();
+		DGraph g2 = g;
 		Node n4=new Node(0,new Point3D(-50,-50));
 		Node n5=new Node(1,new Point3D(0,75));
 		Node n6=new Node(2,new Point3D(50,50));
@@ -38,8 +34,8 @@ class DGraphTest {
 		}
 		return g;
 	}
-	private DGraph1 getDGraph2() {
-		DGraph1 g2=new DGraph1();
+	private DGraph getDGraph2() {
+		DGraph g2 = new DGraph();
 		g2.addNode(new Node(0,new Point3D(0,0))); 
 		g2.addNode(new Node(1,new Point3D(-10,-10))); 
 		g2.addNode(new Node(2,new Point3D(0,20))); 
@@ -61,47 +57,80 @@ class DGraphTest {
 
 	@Test
 	void testGetEdge() {
-		DGraph1 g3= getDGraph1();
+		DGraph g3= getDGraph1();
 
 		for(int j=0;j<5;j++) {
 			assertEquals(g3.getEdge(j, j+1).getDest(),j+1);
-			assertEquals(g3.getEdge(j, j+1).getSrc(),j);	
+			assertEquals(g3.getEdge(j, j+1).getSrc(),j);
 		}
+
 	}
 
 	@Test
 	void testAddNode() {
+		DGraph g = getDGraph1();
+		List<Integer> l_prev = new ArrayList<Integer>();
+		for(node_data node : g.getV()) l_prev.add(node.getKey());
+		node_data node = new Node(10, new Point3D(-9,8));
+		g.addNode(node);
+		List<Integer> l_curr = new ArrayList<Integer>();
+		for(node_data node1 : g.getV()) l_curr.add(node1.getKey());
+		l_prev.add(node.getKey());
+		assertTrue(l_prev.equals(l_curr));
+	}
 
-		fail("Not yet implemented");
+	@Test
+	void testConnect() {
+		DGraph g = getDGraph1();
+		assertFalse(((Node) g.getNode(1)).getNeighbors().containsKey(0));
+		g.connect(1,0,3);
+		assertTrue(((Node) g.getNode(1)).getNeighbors().containsKey(0));
 	}
 
 	@Test
 	void getVgetEtest() {
-		DGraph1 g6=getDGraph1();
+		DGraph g6=getDGraph1();
 		Collection<node_data> nod=g6.getV();
 		for(node_data a:nod) {
 			Collection<edge_data> edg=g6.getE(a.getKey());
 			for(edge_data e:edg) {
 				assertEquals(e.getSrc(),a.getKey());
 				assertEquals(e.getDest(),a.getKey()+1);
-			}	
+			}
 		}
 		assertEquals(g6.nodeSize(),6);
 		assertEquals(g6.edgeSize(),5);
 	}
 
+	@Test
+	void testRemoveNode() {
+		DGraph g = getDGraph1();
+		assertTrue(((Node) g.getNode(1)).getNeighbors().containsKey(2));
+		Node n = (Node)g.getNode(2);
+		g.removeNode(2);
+		assertFalse(g.getV().contains(n));
+		assertFalse(((Node) g.getNode(1)).getNeighbors().containsKey(2));
+	}
 
 	@Test
+	void testRemoveEdge() {
+		DGraph g = getDGraph1();
+		assertTrue(((Node) g.getNode(3)).getNeighbors().containsKey(4));
+		g.removeEdge(3,4);
+		assertFalse(((Node) g.getNode(3)).getNeighbors().containsKey(4));
+	}
+
+	/*@Test
 	void testremoveNodeAndEdgeTest() {
 
-		DGraph1 g7=getDGraph1();
+		DGraph g7=getDGraph1();
 		assertEquals(g7.nodeSize(),9);
 		assertEquals(g7.edgeSize(),8);
 
 		g7.removeEdge(0, 8);
 		assertEquals(g7.edgeSize(),7);
 		g7.removeEdge(0, 8);
-		assertEquals(g7.edgeSize(),7);	
+		assertEquals(g7.edgeSize(),7);
 		g7.removeNode(0);
 		assertEquals(g7.edgeSize(),0);
 		assertEquals(g7.nodeSize(),8);
@@ -113,38 +142,32 @@ class DGraphTest {
 			g7.removeNode(x);
 		}
 		assertEquals(g7.nodeSize(),0);
-	}
+	}*/
 
 	@Test
 	void testNodeSize() {
-		fail("Not yet implemented");
+		DGraph g = getDGraph1();
+		assertEquals(g.nodeSize(), 6);
 	}
+
 	@Test
 	void testEdgeSize() {
-		fail("Not yet implemented");
+		DGraph g = getDGraph1();
+		assertEquals(g.edgeSize(), 5);
 	}
+
 	@Test
 	void testGetMC() {
-		DGraph1 g8=getDGraph1();
-		assertEquals(g8.getMC(),17);//9 nodes + 8 edges = 17 changes
-		g8.removeNode(0);
-		assertEquals(g8.getMC(),18);//remove node = 1 change
-		g8.removeEdge(0, 7);
-		assertEquals(g8.getMC(),18);//nothing changed
+		DGraph g = getDGraph1();
+		assertEquals(g.getMC(),11); //6 nodes + 5 edges = 11 changes
+		g.removeNode(0);
+		assertEquals(g.getMC(),12); //remove node = 1 change
+		g.removeEdge(2, 3);
+		assertEquals(g.getMC(),13); //another change
 
-		for(int y=1;y<8;y++) {
-			g8.connect(y, y+1, y*2.3);
-			g8.connect(y+1, y, y*2.3);
+		for(int y=1;y<5;y++) {
+			g.connect(y+1, y, y*2.3);
 		}
-		g8.connect(1, 8, 5);
-		g8.connect(8, 1, 6.1);
-		assertEquals(g8.getMC(),34);
-
-		g8.removeNode(5);
-		assertEquals(g8.getMC(),35);
-		g8.removeEdge(5, 6);
-		assertEquals(g8.getMC(),35);//nothing changed
-
+		assertEquals(g.getMC(),17);
 	}
-
 }

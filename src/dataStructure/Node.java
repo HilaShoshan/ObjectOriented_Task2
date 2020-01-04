@@ -1,6 +1,8 @@
 package dataStructure;
 
 import utils.Point3D;
+
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Iterator;
 
@@ -9,7 +11,7 @@ import java.util.Iterator;
  * Node is a vertex, in a graph for example, and has key (ID: unique to every node).
  * there are some more attributes to the node, that will help us to implement the algorithms in the rest of our project.
  */
-public class Node implements node_data, Comparable<Object> {
+public class Node implements node_data, Comparable<Object>, Serializable {
 
     private int key;
     private double weight; //a variable that will save the distances at shortestPathDist method;

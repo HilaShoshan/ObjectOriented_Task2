@@ -44,19 +44,18 @@ public class Graph_Algo implements graph_algorithms{
 
 	@Override
 	public void init(String file_name) {
-		DGraph t = null;
+		DGraph g = null;
 		try
 		{
 			FileInputStream file = new FileInputStream(file_name);
 			ObjectInputStream in = new ObjectInputStream(file);
 
-			t = (DGraph)in.readObject();
+			g = (DGraph)in.readObject();
 
 			in.close();
 			file.close();
 
 			System.out.println("Object has been deserialized");
-
 		}
 		catch(IOException ex)
 		{
@@ -70,7 +69,6 @@ public class Graph_Algo implements graph_algorithms{
 
 	@Override
 	public void save(String file_name) {
-
 		try
 		{
 			FileOutputStream file = new FileOutputStream(file_name);
