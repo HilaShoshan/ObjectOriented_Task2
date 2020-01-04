@@ -195,6 +195,10 @@ public class Graph_GUI extends JFrame implements ActionListener, MouseListener {
         menu3.add(item9);
         menu3.add(item10);
 
+        //StdDraw.picture(-10, -10, "http://www.up2me.co.il/imgs/22922760.png", 100, 200);
+        ImageTutorial it = new ImageTutorial();
+        it.pack();
+
         this.addMouseListener(this);
     }
 
@@ -293,4 +297,18 @@ public class Graph_GUI extends JFrame implements ActionListener, MouseListener {
     public void mouseExited(MouseEvent e) {
 
     }
+
+    private class ImageTutorial extends JFrame {
+        private ImageIcon image;
+        private JLabel label;
+
+        ImageTutorial() {
+            setLayout(new FlowLayout());
+            image = new ImageIcon(getClass().getResource("http://www.up2me.co.il/imgs/22922760.png"));
+            label = new JLabel(image);
+            add(label);
+        }
+    }
 }
+
+
