@@ -59,7 +59,7 @@ public class Graph_GUI extends JFrame implements ActionListener, MouseListener {
                 Point3D p_src = n.getLocation();
                 Point3D p_dest = ga.getGraph().getNode(dest).getLocation();
                 //checks if e is part of the path (so there is already an orange line there).
-                if(!algo || (!likeString(path).contains(e) && !likeString(path).contains(e_reverse))) {
+                if(!algo || (path == null) || (!likeString(path).contains(e) && !likeString(path).contains(e_reverse))) {
                     StdDraw.setPenColor(Color.PINK);
                     StdDraw.setPenRadius(0.006);
                     StdDraw.line(p_src.x(), p_src.y(), p_dest.x(), p_dest.y());
@@ -104,19 +104,24 @@ public class Graph_GUI extends JFrame implements ActionListener, MouseListener {
     private void paintPath(List<node_data> path, double minX, double maxX, double maxY) {
         StdDraw.setPenColor(Color.orange);
         StdDraw.setPenRadius(0.006);
+        double midX = (minX + maxX) /2;
+        if(path == null) {
+            StdDraw.setPenRadius(1.5);
+            StdDraw.text(midX, maxY + 1, "There is no path");
+            return;
+        }
         Iterator<node_data> itr = path.iterator();
         node_data prev = null, curr;
         if(itr.hasNext()) prev = itr.next();
-        while(itr.hasNext()) {
+        while(itr.hasNext()) { //a loop that draws line between all the vertex in the path result
             curr = itr.next();
             Point3D p_prev = prev.getLocation();
             Point3D p_curr = curr.getLocation();
             StdDraw.line(p_curr.x(), p_curr.y(), p_prev.x(), p_prev.y());
             prev = curr;
         }
-        double midX = (minX + maxX) /2;
         StdDraw.setPenColor(Color.ORANGE);
-        StdDraw.setPenRadius(0.08);
+        StdDraw.setPenRadius(0.1);
         String p = "";
         node_data n;
         itr = path.iterator();
@@ -232,11 +237,11 @@ public class Graph_GUI extends JFrame implements ActionListener, MouseListener {
             if(s.length != 2) {
                 JOptionPane.showMessageDialog(this,"Please choose 2 keys, according to the request ","Error",
                         JOptionPane.ERROR_MESSAGE);
-                throw new RuntimeException("please choose 2 keys");
+                throw new RuntimeException("please choose 2 keys"); //maybe askPath again? *********
             }
             int key1 = Integer.parseInt(s[0]);
             int key2 = Integer.parseInt(s[1]);
-            List<node_data> path = this.ga.shortestPath(0,2);
+            List<node_data> path = this.ga.shortestPath(key1,key2);
             drawGraph(true, path);
         }
         if(e.getActionCommand() == "TSP") {

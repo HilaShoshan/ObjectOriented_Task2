@@ -168,8 +168,10 @@ public class Graph_Algo implements graph_algorithms{
 		Node next;
 		while (itr.hasNext()) {
 			next = (Node)itr.next();
-			if(next.getKey() != src)
+			if(next.getKey() != src) {
 				next.setWeight(Double.MAX_VALUE); //the initial distances of all the other vertexes are INFINITY.
+				next.setInfo(null); //init the info of all the other vertex to be null (if there is another value there from previous runs).
+			}
 			else next.setWeight(0);
 		}
 	}
@@ -272,6 +274,3 @@ public class Graph_Algo implements graph_algorithms{
 		this.g = g;
 	}
 }
-
-
-

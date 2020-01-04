@@ -148,11 +148,36 @@ public class Test {
 
         l.remove(2);
         for(node_data n : ga.TSP(l)) System.out.print(n.getKey() + ",");
+    }
 
+    /**
+     * test case that there is no way between 2 vertexes
+     */
+    public static void test4() {
+        Node n1 = new Node(0, new Point3D(3,5));
+        Node n2 = new Node(1, new Point3D(-2,5));
+        Node n3 = new Node(2, new Point3D(3,-5));
+        Node n4 = new Node(3, new Point3D(2,7));
+        DGraph g = new DGraph();
+        g.addNode(n1);
+        g.addNode(n2);
+        g.addNode(n3);
+        g.addNode(n4);
+        g.connect(0,1, 8);
+        g.connect(1,0, 15);
+        g.connect(2,3, 4);
+        g.connect(1,2, 7);
+        g.connect(1,3, 30);
+        Graph_Algo ga = new Graph_Algo();
+        ga.init(g);
+
+        if(ga.shortestPathDist(3,0) == Double.MAX_VALUE) System.out.println("no way");
+        ga.shortestPath(3,0);
     }
 
     public static void main(String[] args) {
-        test3();
+        //test3();
         //test2();
+        test4();
     }
 }
