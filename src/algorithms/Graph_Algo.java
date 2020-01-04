@@ -203,6 +203,7 @@ public class Graph_Algo implements graph_algorithms{
 	public List<node_data> TSP(List<Integer> targets) {
 		Iterator<Integer> itr = targets.iterator();
 		List<node_data> pathRes = new ArrayList<node_data>(); //the returned list of all the vertexes we visited
+		setAllVisit(); //initialization
 		int current, next;
 		while(itr.hasNext()) {
 			current = itr.next();
@@ -223,6 +224,17 @@ public class Graph_Algo implements graph_algorithms{
 			}
 		}
 		return pathRes;
+	}
+
+	/**
+	 * An assistance method that helps us to set all the isVisit attribute of all the nodes in the graph.
+	 * at the beginning of the algorithm, all the vertexes haven't visited yet.
+	 */
+	private void setAllVisit() {
+		Iterator<node_data> itr = g.getV().iterator();
+		while(itr.hasNext()) {
+			((Node)itr.next()).setIsVisit(false);
+		}
 	}
 
 	private boolean findPath(List<node_data> pathRes, int current, int next, Node n) {

@@ -77,7 +77,7 @@ public class Graph_GUI extends JFrame implements ActionListener, MouseListener {
                 StdDraw.setPenColor(Color.BLACK);
                 StdDraw.setPenRadius(0.04);
                 String w = Double.toString(ga.getGraph().getEdge(n.getKey(), dest).getWeight());
-                StdDraw.text(x_space,y_space + 0.2, w);
+                StdDraw.text(x_space,y_space + 0.15, w);
             }
         }
 
@@ -125,7 +125,8 @@ public class Graph_GUI extends JFrame implements ActionListener, MouseListener {
            if(itr.hasNext()) p += n.getKey() + " --> "; //we're not in the last one
            else p += n.getKey();
         }
-        StdDraw.text(midX, maxY + 0.6, "The shortest path: " + p);
+        StdDraw.setPenRadius(1.5);
+        StdDraw.text(midX, maxY + 1, "The path is: " + p);
     }
 
     private void init() {
