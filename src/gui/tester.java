@@ -26,7 +26,7 @@ public class tester
         gg.getGA().getGraph().connect(1,2, 7);
         gg.getGA().getGraph().connect(1,3, 30);*/
 
-        /*DGraph g = new DGraph();
+        DGraph g = new DGraph();
         Node n1 = new Node(0, new Point3D(3,5));
         Node n2 = new Node(1, new Point3D(-2,5));
         Node n3 = new Node(2, new Point3D(3,-5));
@@ -43,9 +43,9 @@ public class tester
         Graph_Algo ga = new Graph_Algo();
         ga.init(g);
         Graph_GUI gg = new Graph_GUI(ga);
-        //g.addNode(new Node(6)); */
+        //g.addNode(new Node(6));
 
-        Graph_Algo GA = new Graph_Algo();
+        /*Graph_Algo GA = new Graph_Algo();
 
         Node N1 = new Node(1, new Point3D(0,-5));
         Node N2 = new Node(2, new Point3D(3,4));
@@ -76,6 +76,6 @@ public class tester
                 e.printStackTrace();
             }
             GA.getGraph().addNode(new Node(6+i, new Point3D(-7+i, 15)));
-        }
+        }*/
     }
 }

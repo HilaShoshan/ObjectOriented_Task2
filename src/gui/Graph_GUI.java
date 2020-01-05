@@ -199,7 +199,6 @@ public class Graph_GUI extends JFrame implements ActionListener, Runnable {
         t.setRepeats(true);
         t.start();
 
-
         MenuBar menuBar = new MenuBar();
         Menu menu1 = new Menu("graph");
         Menu menu2 = new Menu("algorithms");
@@ -295,6 +294,7 @@ public class Graph_GUI extends JFrame implements ActionListener, Runnable {
             String name = (String) JOptionPane.showInputDialog(this, "write the name of the file you want to save: ");
             ga.init(name);
             JOptionPane.showMessageDialog(this,"Object has been deserialized");
+            drawGraph(false, null);
         }
         //algorithms menu
         if (e.getActionCommand() == "isConnected") {
