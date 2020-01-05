@@ -6,6 +6,7 @@ import java.util.HashMap;
 
 public class DGraph implements graph, Serializable {
 
+    //fields
     HashMap<Integer, node_data> graph = new HashMap<Integer, node_data>();
     private int nodeSize = 0;
     private int edgeSize = 0;

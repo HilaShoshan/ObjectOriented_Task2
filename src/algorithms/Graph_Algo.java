@@ -30,11 +30,13 @@ public class Graph_Algo implements graph_algorithms{
 	public DGraph getGraph() {
 		return this.g;
 	}
-	/*
-	 * Default constructor
-	 */
-	public Graph_Algo() {
+
+	//constructors
+	public Graph_Algo() { //default
 		this.g = new DGraph();
+	}
+	public Graph_Algo(DGraph g) {
+		this.g = g;
 	}
 
 	@Override

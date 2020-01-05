@@ -5,6 +5,7 @@ import utils.Point3D;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Random;
 
 /**
  * This class implements node_data interface, and representing a Node:
@@ -37,6 +38,9 @@ public class Node implements node_data, Comparable<Object>, Serializable {
 
     public Node(int key) {
         this.key = key;
+        double x = Math.random() * 10;
+        double y = Math.random() * 10;
+        Point3D p = new Point3D(x,y);
     }
 
     public Node(Node copy) {

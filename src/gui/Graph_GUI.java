@@ -1,6 +1,7 @@
 package gui;
 
 import algorithms.Graph_Algo;
+import dataStructure.DGraph;
 import dataStructure.Node;
 import dataStructure.node_data;
 import utils.Point3D;
@@ -35,6 +36,13 @@ public class Graph_GUI extends JFrame implements ActionListener, MouseListener {
     }
 
     public Graph_GUI(Graph_Algo ga) {
+        this.ga = ga;
+        init();
+    }
+
+    public Graph_GUI(DGraph g) {
+        Graph_Algo ga = new Graph_Algo();
+        ga.init(g);
         this.ga = ga;
         init();
     }
