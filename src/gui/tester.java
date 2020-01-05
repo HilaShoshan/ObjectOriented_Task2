@@ -6,6 +6,8 @@ import dataStructure.DGraph;
 import dataStructure.Node;
 import utils.Point3D;
 
+import java.util.concurrent.TimeUnit;
+
 public class tester
 {
     public static void main(String[] args) {
@@ -66,7 +68,14 @@ public class tester
         GA.getGraph().connect(3,5,1);
 
         Graph_GUI gg = new Graph_GUI(GA);
-        GA.getGraph().addNode(new Node(6, new Point3D(-7, 15)));
 
+        for(int i = 0; i < 10;i++){
+            try {
+                TimeUnit.SECONDS.sleep(3);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            GA.getGraph().addNode(new Node(6+i, new Point3D(-7+i, 15)));
+        }
     }
 }

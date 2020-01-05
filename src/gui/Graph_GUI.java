@@ -23,9 +23,10 @@ import java.util.List;
  * In addition, enable to run algorithms on it (all the algorithms from Graph_Algo class), and represent the answers.
  * Also can add / remove Nodes and edges.
  */
-public class Graph_GUI extends JFrame implements ActionListener {
+public class Graph_GUI extends JFrame implements ActionListener, Runnable {
 
     private Graph_Algo ga;
+    private int mc;
 
     //getter
     public Graph_Algo getGA() {
@@ -53,21 +54,22 @@ public class Graph_GUI extends JFrame implements ActionListener {
     /**
      * This method using STDraw library (utils) to draw the graph.
      * [look at our wiki to see the explanation of all the parts on the graph].
+     *
      * @param algo = a boolean parameter that says if the method was called by an algorithm (in actionPerformed): shortestPath / TSP.
      * @param path = a List that represents a path. will be define only if algo is true, otherwise will be null.
      */
     private void drawGraph(boolean algo, List<node_data> path) {
-        StdDraw.setCanvasSize(800,600);
+        StdDraw.setCanvasSize(800, 600);
 
         //find the scale size
         double INF = Double.MAX_VALUE, MINF = Double.MIN_VALUE;
         double minX = INF, maxX = MINF, minY = INF, maxY = MINF;
-        for(node_data n : ga.getGraph().getV()) {
+        for (node_data n : ga.getGraph().getV()) {
             Point3D p = n.getLocation();
-            if(p.x() > maxX) maxX = p.x();
-            if(p.x() < minX) minX = p.x();
-            if(p.y() > maxY) maxY = p.y();
-            if(p.y() < minY) minY = p.y();
+            if (p.x() > maxX) maxX = p.x();
+            if (p.x() < minX) minX = p.x();
+            if (p.y() > maxY) maxY = p.y();
+            if (p.y() < minY) minY = p.y();
         }
         int space = 3; //a number that we'll add to the length & width to be space
         StdDraw.setXscale(minX - space, maxX + space);
@@ -75,16 +77,16 @@ public class Graph_GUI extends JFrame implements ActionListener {
 
         //draw all the edges that come out of each vertex:
 
-        if(algo)  //if the method was triggered by an algorithm (shortestPath/TSP)
+        if (algo)  //if the method was triggered by an algorithm (shortestPath/TSP)
             paintPath(path, minX, maxX, maxY);
-        for(node_data n : ga.getGraph().getV()) {
-            for(int dest : ((Node)n).getNeighbors().keySet()) {
+        for (node_data n : ga.getGraph().getV()) {
+            for (int dest : ((Node) n).getNeighbors().keySet()) {
                 String e = n.getKey() + "," + dest; //e = string representing an edge that begins in n and ends in dest.
                 String e_reverse = dest + "," + n.getKey();
                 Point3D p_src = n.getLocation();
                 Point3D p_dest = ga.getGraph().getNode(dest).getLocation();
                 //checks if e is part of the path (so there is already an orange line there).
-                if(!algo || (path == null) || (!likeString(path).contains(e) && !likeString(path).contains(e_reverse))) {
+                if (!algo || (path == null) || (!likeString(path).contains(e) && !likeString(path).contains(e_reverse))) {
                     StdDraw.setPenColor(Color.PINK);
                     StdDraw.setPenRadius(0.006);
                     StdDraw.line(p_src.x(), p_src.y(), p_dest.x(), p_dest.y());
@@ -95,7 +97,7 @@ public class Graph_GUI extends JFrame implements ActionListener {
                 //add a triangle that represents the head of the arrow
                 double width = (maxX - minX + 6) / 55;
                 double height = (maxY - minY + 6) / 45;
-                StdDraw.picture(x_space, y_space,"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQOAV_8t4Cpta3s1rFNJSvA9OyGs9eyKfuV4Zb0sPE8-3mEZj3O&s",
+                StdDraw.picture(x_space, y_space, "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQOAV_8t4Cpta3s1rFNJSvA9OyGs9eyKfuV4Zb0sPE8-3mEZj3O&s",
                         width, height);
                 //calculate the space to take from dest, to put the edge's weight
                 x_space = p_src.x() * 0.22 + p_dest.x() * 0.88;
@@ -104,18 +106,18 @@ public class Graph_GUI extends JFrame implements ActionListener {
                 StdDraw.setPenColor(Color.BLACK);
                 StdDraw.setPenRadius(0.04);
                 String w = Double.toString(ga.getGraph().getEdge(n.getKey(), dest).getWeight());
-                StdDraw.text(x_space,y_space + 0.15, w);
+                StdDraw.text(x_space, y_space + 0.15, w);
             }
         }
 
         //draw each vertex & it's key
-        for(node_data n : ga.getGraph().getV()) {
+        for (node_data n : ga.getGraph().getV()) {
             StdDraw.setPenColor(Color.black);
             StdDraw.setPenRadius(0.05);
             Point3D p = n.getLocation();
-            StdDraw.point(p.x(),p.y());
+            StdDraw.point(p.x(), p.y());
             StdDraw.setPenColor(Color.WHITE);
-            StdDraw.text(p.x(), p.y(),n.getKey() + "");
+            StdDraw.text(p.x(), p.y(), n.getKey() + "");
         }
     }
 
@@ -130,25 +132,26 @@ public class Graph_GUI extends JFrame implements ActionListener {
 
     /**
      * Method that "paint" the path answer on TSP and shortestPathDist algorithms.
+     *
      * @param path = the result of the algorithm.
      * @param minX = the minimum x's node value.
      * @param maxX = the maximum x's node value.
      * @param maxY = the maximum y's node value.
-     * ! all the max and min values sent here to determine the location of the path text (n1 --> n2 --> ...)
+     *             ! all the max and min values sent here to determine the location of the path text (n1 --> n2 --> ...)
      */
     private void paintPath(List<node_data> path, double minX, double maxX, double maxY) {
         StdDraw.setPenColor(Color.orange);
         StdDraw.setPenRadius(0.006);
-        double midX = (minX + maxX) /2;
-        if(path == null) {
+        double midX = (minX + maxX) / 2;
+        if (path == null) {
             StdDraw.setPenRadius(1.5);
             StdDraw.text(midX, maxY + 1, "There is no path");
             return;
         }
         Iterator<node_data> itr = path.iterator();
         node_data prev = null, curr;
-        if(itr.hasNext()) prev = itr.next();
-        while(itr.hasNext()) { //a loop that draws line between all the vertex in the path result
+        if (itr.hasNext()) prev = itr.next();
+        while (itr.hasNext()) { //a loop that draws line between all the vertex in the path result
             curr = itr.next();
             Point3D p_prev = prev.getLocation();
             Point3D p_curr = curr.getLocation();
@@ -160,13 +163,21 @@ public class Graph_GUI extends JFrame implements ActionListener {
         String p = "";
         node_data n;
         itr = path.iterator();
-        while(itr.hasNext()) {
-           n = itr.next();
-           if(itr.hasNext()) p += n.getKey() + " --> "; //we're not in the last one
-           else p += n.getKey();
+        while (itr.hasNext()) {
+            n = itr.next();
+            if (itr.hasNext()) p += n.getKey() + " --> "; //we're not in the last one
+            else p += n.getKey();
         }
         StdDraw.setPenRadius(1.5);
         StdDraw.text(midX, maxY + 1, "The path is: " + p);
+    }
+
+    @Override
+    public void run() {
+        if (this.mc != this.ga.getG().getMC()){
+            this.mc = this.ga.getG().getMC();
+            drawGraph(false, null);
+        }
     }
 
     /**
@@ -177,6 +188,17 @@ public class Graph_GUI extends JFrame implements ActionListener {
         this.setVisible(true);
         this.setSize(1000, 600);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        this.mc = this.ga.getG().getMC();
+        ActionListener listen = new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                run();
+            }
+        };
+        javax.swing.Timer t = new javax.swing.Timer(1000, listen);
+        t.setRepeats(true);
+        t.start();
+
 
         MenuBar menuBar = new MenuBar();
         Menu menu1 = new Menu("graph");
@@ -340,6 +362,7 @@ public class Graph_GUI extends JFrame implements ActionListener {
                 Point3D p = new Point3D(Double.parseDouble(spl[1]), Double.parseDouble(spl[2]));
                 ga.getG().addNode(new Node(key, p));
                 JOptionPane.showMessageDialog(this, "Successfully added", "Add status", JOptionPane.INFORMATION_MESSAGE);
+                drawGraph(false, null);
             } catch (Exception err) {throwErr2();}
         }
         if (e.getActionCommand() == "removeNode") {
@@ -349,6 +372,7 @@ public class Graph_GUI extends JFrame implements ActionListener {
                 int key = Integer.parseInt(node);
                 ga.getG().removeNode(key);
                 JOptionPane.showMessageDialog(this, "Successfully removed", "Remove status", JOptionPane.INFORMATION_MESSAGE);
+                drawGraph(false, null);
             } catch (Exception err) {throwErr2();}
         }
         if (e.getActionCommand() == "connect") {
@@ -361,6 +385,7 @@ public class Graph_GUI extends JFrame implements ActionListener {
                 double weight = Double.parseDouble(spl[2]);
                 ga.getG().connect(src,dest,weight);
                 JOptionPane.showMessageDialog(this, "Successfully connect", "Connect status", JOptionPane.INFORMATION_MESSAGE);
+                drawGraph(false, null);
             } catch (Exception err) {throwErr2();}
         }
         if(e.getActionCommand() == "removeEdge") {
@@ -372,6 +397,7 @@ public class Graph_GUI extends JFrame implements ActionListener {
                 int dest = Integer.parseInt(spl[1]);
                 ga.getG().removeEdge(src,dest);
                 JOptionPane.showMessageDialog(this, "Successfully remove", "Remove status", JOptionPane.INFORMATION_MESSAGE);
+                drawGraph(false, null);
             } catch (Exception err) {throwErr2();}
         }
     }
@@ -393,6 +419,7 @@ public class Graph_GUI extends JFrame implements ActionListener {
         String[] s = path.split(",");
         return s;
     }
+
 }
 
 
