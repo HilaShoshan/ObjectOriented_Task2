@@ -41,7 +41,7 @@ public class tester
         Graph_Algo ga = new Graph_Algo();
         ga.init(g);
         Graph_GUI gg = new Graph_GUI(ga);
-        g.addNode(new Node(6)); //***** error ....
+        //g.addNode(new Node(6));
 
 
 

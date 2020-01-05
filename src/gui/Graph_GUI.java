@@ -7,12 +7,15 @@ import dataStructure.node_data;
 import utils.Point3D;
 import utils.StdDraw;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -211,8 +214,27 @@ public class Graph_GUI extends JFrame implements ActionListener, MouseListener {
         menu3.add(item9);
         menu3.add(item10);
 
-        //ImageTutorial it = new ImageTutorial();
-        //it.pack();
+        //add am image in background when the GUI window open
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
+        }
+
+        try {
+            String path = "http://www.up2me.co.il/imgs/22922760.png";
+            System.out.println("Get Image from " + path);
+            URL url = new URL(path);
+            BufferedImage image = ImageIO.read(url);
+            System.out.println("Load image into frame...");
+            JLabel label = new JLabel(new ImageIcon(image));
+            this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            this.getContentPane().add(label);
+            this.pack();
+           // f.setLocation(200, 200);
+           // f.setVisible(true);
+        } catch (Exception exp) {
+            exp.printStackTrace();
+        }
 
         this.addMouseListener(this);
     }
@@ -377,18 +399,6 @@ public class Graph_GUI extends JFrame implements ActionListener, MouseListener {
     public void mouseExited(MouseEvent e) {
 
     }
-
-    /*private class ImageTutorial extends JFrame {
-        private ImageIcon image;
-        private JLabel label;
-
-        ImageTutorial() {
-            setLayout(new FlowLayout());
-            image = new ImageIcon(getClass().getResource("[url=https://ibb.co/34v67QY][img]https://i.ibb.co/ckwf1VX/monhe.png[/img][/url]"));//("http://www.up2me.co.il/imgs/22922760.png"));
-            label = new JLabel(image);
-            add(label);
-        }
-    }*/
 }
 
 
