@@ -1,10 +1,12 @@
 # The mazeof WAZE!
 
-ObjectOriented_Task2
-Author:Yasmin rachel gedanken 
-Author:Hila Shoshan
-Author:Shani Cohen
-In this project we work on directed graphs. 
+#ObjectOriented_Task2
+#Author:Yasmin rachel gedanken 
+#Author:Hila Shoshan
+#Author:Shani Cohen
+
+
+#In this project we work on directed graphs. 
 this project represent a Directed Graph with algorithms to manipulate the graph. In this assignment we have developed a data structure, algorithms and Graphical User Interface. The assignment deals with the development of a data structure of deliberate weighted graph. After implement the Data structure, we implement algorithms such as the shortest path from source vertex to a destination vertex, if the graph is connected and several more. this Project contains five main classes
 
 directed graph definition In formal terms, a directed graph is an ordered pair G = (V, A) where[1]
