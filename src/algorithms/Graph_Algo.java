@@ -17,13 +17,17 @@ import dataStructure.node_data;
 
 
 /**
- * This empty class represents the set of graph-theory algorithms
- * which should be implemented as part of Ex2 - Do edit this class.
- * @author
- *
+ * This class represents the set of graph-theory algorithms, imclude:
+ * * 0. clone();
+ *  * 1. init(String file_name);
+ *  * 2. save(String file_name);
+ *  * 3. isConnected();
+ *  * 5. double shortestPathDist(int src, int dest);
+ *  * 6. List<Node> shortestPath(int src, int dest);
  */
 
 public class Graph_Algo implements graph_algorithms{
+
 	private DGraph g;
 
 	//getter
@@ -44,6 +48,10 @@ public class Graph_Algo implements graph_algorithms{
 		this.setG((DGraph) g);
 	}
 
+	/**
+	 * This method enable to load a saved graph from file.
+	 * @param file_name = the name of the graph as it saved.
+	 */
 	@Override
 	public void init(String file_name) {
 		DGraph g = null;
@@ -69,6 +77,10 @@ public class Graph_Algo implements graph_algorithms{
 		}
 	}
 
+	/**
+	 * This method enable to save the graph as a file, (using serialized).
+	 * @param file_name = the filename that the user wants to call the graph as.
+	 */
 	@Override
 	public void save(String file_name) {
 		try
@@ -86,6 +98,11 @@ public class Graph_Algo implements graph_algorithms{
 		}
 	}
 
+	/**
+	 * A boolean method that checks if the graph is strongly connected other node.
+	 * [if there is a valid path from EVREY node to each].
+	 * @return true iff the graph is strongly connected.
+	 */
 	@Override
 	public boolean isConnected() {
 		if(getG().nodeSize() == 0) return true;
@@ -138,6 +155,12 @@ public class Graph_Algo implements graph_algorithms{
 		}
 	}
 
+	/**
+	 * Method that returns the length of the shortest path between src to dest.
+	 * @param src - start node
+	 * @param dest - end (target) node
+	 * @return the shortest path distance.
+	 */
 	@Override
 	public double shortestPathDist(int src, int dest) {
 		//a PriorityQueue that saves all the vertex by the weights.
@@ -191,6 +214,13 @@ public class Graph_Algo implements graph_algorithms{
 		}
 	}
 
+	/**
+	 * Method that returns the shortest path between src to dest - as an ordered List of nodes:
+	 * 	  src --> n1 --> n2 --> ... --> dest
+	 * @param src - start node
+	 * @param dest - end (target) node
+	 * @return
+	 */
 	@Override
 	public List<node_data> shortestPath(int src, int dest) {
 		shortestPathDist(src, dest);
@@ -204,6 +234,12 @@ public class Graph_Algo implements graph_algorithms{
 		return path;
 	}
 
+	/**
+	 * Method that computes a relatively short path which visit each node in the targets List.
+	 * (this is NOT the classical traveling salesman problem).
+	 * @param targets = a list of all the node's keys that we need to travel.
+	 * @return a simple path going over all nodes in the list.
+	 */
 	@Override
 	public List<node_data> TSP(List<Integer> targets) {
 		List<node_data> pathRes = new ArrayList<node_data>(); //the returned list of all the vertexes we visited
@@ -256,6 +292,10 @@ public class Graph_Algo implements graph_algorithms{
 		return false;
 	}
 
+	/**
+	 * Compute a deep copy of this graph.
+	 * @return a new graph copy.
+	 */
 	@Override
 	public graph copy() {
 		Graph_Algo ga = new Graph_Algo();
