@@ -189,10 +189,41 @@ public class Test {
         g.addNode(n5);
     }
 
+    public static void test6() {
+        Graph_Algo GA = new Graph_Algo();
+
+        Node N1 = new Node(1, new Point3D(3,4));
+        Node N2 = new Node(2, new Point3D(3,4));
+        Node N3 = new Node(3, new Point3D(3,4));
+        Node N4 = new Node(4, new Point3D(3,4));
+        Node N5 = new Node(5, new Point3D(3,4));
+
+        GA.getGraph().addNode(N1);
+        GA.getGraph().addNode(N2);
+        GA.getGraph().addNode(N3);
+        GA.getGraph().addNode(N4);
+        GA.getGraph().addNode(N5);
+
+        GA.getGraph().connect(1,5,3);
+        GA.getGraph().connect(5,2,2);
+        GA.getGraph().connect(2,3,5);
+        GA.getGraph().connect(3,4,6);
+        GA.getGraph().connect(4,3,7);
+        GA.getGraph().connect(3,1,4);
+        GA.getGraph().connect(3,5,1);
+
+        System.out.println(GA.isConnected());
+
+        GA.getGraph().removeEdge(3,4);
+
+        System.out.println(GA.isConnected());
+    }
+
     public static void main(String[] args) {
         //test3();
         //test2();
         //test4();
-        test5();
+        //test5();
+        test6();
     }
 }

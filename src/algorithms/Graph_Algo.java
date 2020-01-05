@@ -97,6 +97,7 @@ public class Graph_Algo implements graph_algorithms{
 		while(itr.hasNext()) {
 			next = (Node)itr.next();
 			if(!isConnectedToDest(next, first)) return false;
+			paintAll();
 		}
 		return true;
 	}
@@ -104,9 +105,12 @@ public class Graph_Algo implements graph_algorithms{
 	private boolean isFirstConnected(Node node) {
 		Iterator<node_data> itr = getG().getV().iterator();
 		boolean connected;
-		while(itr.hasNext() && itr.next() != node) {
-			connected = isConnectedToDest(node, (Node)itr.next());
+		while(itr.hasNext()) {
+			node_data next = itr.next();
+			if(next == node) continue;
+			connected = isConnectedToDest(node, (Node)next);
 			if(!connected) return false;
+			paintAll();
 		}
 		return true;
 	}

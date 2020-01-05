@@ -1,7 +1,5 @@
-/*
-package Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+package Test;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -10,7 +8,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import algorithms.Graph_Algo;
-import dataStructure.DGraph1;
+import dataStructure.DGraph;
 import dataStructure.Node;
 import dataStructure.edge;
 import dataStructure.edge_data;
@@ -18,59 +16,64 @@ import dataStructure.graph;
 import dataStructure.node_data;
 import utils.Point3D;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 class Graph_AlgoTest {
 
+	private Graph_Algo getGA(){
+		Graph_Algo GA = new Graph_Algo();
+
+		Node N1 = new Node(1, new Point3D(3,4));
+		Node N2 = new Node(2, new Point3D(3,4));
+		Node N3 = new Node(3, new Point3D(3,4));
+		Node N4 = new Node(4, new Point3D(3,4));
+		Node N5 = new Node(5, new Point3D(3,4));
+
+		GA.getGraph().addNode(N1);
+		GA.getGraph().addNode(N2);
+		GA.getGraph().addNode(N3);
+		GA.getGraph().addNode(N4);
+		GA.getGraph().addNode(N5);
+
+		GA.getGraph().connect(1,5,3);
+		GA.getGraph().connect(5,2,2);
+		GA.getGraph().connect(2,3,5);
+		GA.getGraph().connect(3,4,6);
+		GA.getGraph().connect(4,3,7);
+		GA.getGraph().connect(3,1,4);
+		GA.getGraph().connect(3,5,1);
+
+		return GA;
+	}
 
 	@Test
-	void initTest() {
-	
-		Graph_Algo g1 = new Graph_Algo();
-		DGraph1 dg = new DGraph1();
-		g1.init(dg);
-		boolean ans = g1.g == dg;
+	void testInit() {
+		Graph_Algo ga = getGA();
+		DGraph dg = new DGraph();
+		ga.init(dg);
+		boolean ans = ga.getG() == dg;
 		assertEquals(true, ans);
 	}
 
 	@Test
-	void testSaveAndfile_name() {
-		Graph_Algo ga1 = new Graph_Algo();
-		ga1.g.addNode(new Node(4,new Point3D(15, 15)));
-		ga1.g.addNode(new Node(5,new Point3D(5, 5)));
-		ga1.g.connect(4, 5, 2);
-		ga1.save("JunitTest");
-		Graph_Algo ga2 = new Graph_Algo();
-		ga2.init("JunitTest");
-		Collection<edge_data> c = ga2.g.getE(0);
-		for(edge_data e: c) {
-			edge ed = (edge)e;
-			System.out.println(ed.getDest());
-			assertEquals(true, ed.getSrc() == 4 && ed.getDest() == 5);
-		}
+	void testSaveLoad() {
+		Graph_Algo ga = getGA();
+		ga.save("test");
+		Graph_Algo load = new Graph_Algo();
+		load.init("test");
 	}
-	*/
-/**
-	 * Init a graph from file
-	 * @param file_name
-	 *//*
-
 
 	@Test
 	void testIsConnected() {
-		Graph_Algo ga = new Graph_Algo();
-		for(int i=0;i<11;i++) {//0 1 2 3 4 5 6 7 8 9 10
-			ga.g.addNode(new Node(i,new Point3D(i, i)));
-		}
-		for(int j=0;j<10;j++) {
-			ga.g.connect(j,j+1 , 2);
-		}
-		assertEquals(false,ga.isConnected());
-		ga.g.connect(10, 0, 50);
-		assertEquals(true,ga.isConnected());
+		Graph_Algo ga = getGA();
+		assertTrue(ga.isConnected());
+		ga.getG().removeEdge(3,4);
+		assertFalse(ga.isConnected());
 	}
 
+/*
 
-	*/
-/**
+*//**
 	 * returns the length of the shortest path between src to dest
 	 * @param src - start node
 	 * @param dest - end (target) node
@@ -205,12 +208,12 @@ class Graph_AlgoTest {
 		g6.getG().addNode(new Node());
 		g6.getG().addNode(new Node(1,new Point3D(8, 8)));
 		g6.getG().connect(0, 1, 2);
-		graph graph2 =new DGraph1();
+		graph graph2 =new DGraph();
 		graph2 =g6.copy();
 		Collection<edge_data> cl = graph2.getE(0);
 		for(edge_data e: cl) {
 			edge edg = (edge)e;
 			assertEquals(true, edg.getSrc() == 0 && edg.getDest() == 1);
 		}
-	}
-}*/
+	}*/
+}
