@@ -12,8 +12,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.net.URL;
 import java.util.ArrayList;
@@ -23,7 +21,7 @@ import java.util.List;
 /**
  * This class implements
  */
-public class Graph_GUI extends JFrame implements ActionListener, MouseListener {
+public class Graph_GUI extends JFrame implements ActionListener {
 
     private Graph_Algo ga;
 
@@ -235,8 +233,6 @@ public class Graph_GUI extends JFrame implements ActionListener, MouseListener {
         } catch (Exception exp) {
             exp.printStackTrace();
         }
-
-        this.addMouseListener(this);
     }
 
     @Override
@@ -373,31 +369,6 @@ public class Graph_GUI extends JFrame implements ActionListener, MouseListener {
                         "[like this: src,dest]");
         String[] s = path.split(",");
         return s;
-    }
-
-    @Override
-    public void mouseClicked(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mousePressed(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
-
     }
 }
 
