@@ -1,4 +1,4 @@
-package Tests;
+package Testing;
 import static org.junit.jupiter.api.Assertions.*;
 
 import dataStructure.DGraph;

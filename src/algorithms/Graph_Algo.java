@@ -35,8 +35,8 @@ public class Graph_Algo implements graph_algorithms{
 	public Graph_Algo() { //default
 		this.g = new DGraph();
 	}
-	public Graph_Algo(DGraph g) {
-		this.g = g;
+	public Graph_Algo(graph g) {
+		init(g);
 	}
 
 	@Override
