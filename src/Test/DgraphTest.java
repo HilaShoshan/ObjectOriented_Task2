@@ -34,26 +34,6 @@ class DGraphTest {
 		}
 		return g;
 	}
-	private DGraph getDGraph2() {
-		DGraph g2 = new DGraph();
-		g2.addNode(new Node(0,new Point3D(0,0))); 
-		g2.addNode(new Node(1,new Point3D(-10,-10))); 
-		g2.addNode(new Node(2,new Point3D(0,20))); 
-		g2.addNode(new Node(3,new Point3D(10,10))); 
-		g2.addNode(new Node(4,new Point3D(20,0))); 
-		g2.addNode(new Node(5,new Point3D(10,-10))); 
-		g2.addNode(new Node(6,new Point3D(0,-20))); 
-		g2.addNode(new Node(7,new Point3D(-10,10))); 
-		g2.addNode(new Node(8,new Point3D(-20,0))); 
-		for(int i=1;i<9;i++) {
-			g2.connect(0, i, 3);
-		}
-		return g2;
-	}
-	public void shortestPathToString(List<node_data> l){
-		String ans = "";
-		//for(node_data n : l)
-	}
 
 	@Test
 	void testGetEdge() {
@@ -63,7 +43,6 @@ class DGraphTest {
 			assertEquals(g3.getEdge(j, j+1).getDest(),j+1);
 			assertEquals(g3.getEdge(j, j+1).getSrc(),j);
 		}
-
 	}
 
 	@Test
@@ -119,30 +98,6 @@ class DGraphTest {
 		g.removeEdge(3,4);
 		assertFalse(((Node) g.getNode(3)).getNeighbors().containsKey(4));
 	}
-
-	/*@Test
-	void testremoveNodeAndEdgeTest() {
-
-		DGraph g7=getDGraph1();
-		assertEquals(g7.nodeSize(),9);
-		assertEquals(g7.edgeSize(),8);
-
-		g7.removeEdge(0, 8);
-		assertEquals(g7.edgeSize(),7);
-		g7.removeEdge(0, 8);
-		assertEquals(g7.edgeSize(),7);
-		g7.removeNode(0);
-		assertEquals(g7.edgeSize(),0);
-		assertEquals(g7.nodeSize(),8);
-
-		g7.removeNode(0);
-		assertEquals(g7.nodeSize(),8);
-
-		for(int x=1;x<9;x++) {
-			g7.removeNode(x);
-		}
-		assertEquals(g7.nodeSize(),0);
-	}*/
 
 	@Test
 	void testNodeSize() {

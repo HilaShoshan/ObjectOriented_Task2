@@ -3,7 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="8778c29b-f86c-45d1-8734-49b3241daade" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gui/Graph_GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/Graph_GUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ObjectOriented_Task2/monhe.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-info.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Test/DgraphTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Test/DgraphTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Test/package-info.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/monhe.png" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -69,7 +73,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.tester">
+  <component name="RunManager" selected="JUnit.DGraphTest">
     <configuration name="tester" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="gui.tester" />
       <module name="ObjectOriented_Task2" />
@@ -148,8 +152,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.tester" />
         <item itemvalue="JUnit.DGraphTest" />
+        <item itemvalue="Application.tester" />
         <item itemvalue="JUnit.DGraphTest.testGetMC" />
         <item itemvalue="JUnit.DGraphTest.testEdgeSize" />
         <item itemvalue="JUnit.DGraphTest.testNodeSize" />
@@ -170,7 +174,7 @@
       <workItem from="1577369999039" duration="4233000" />
       <workItem from="1577466594828" duration="24607000" />
       <workItem from="1577725871093" duration="1180000" />
-      <workItem from="1577793658635" duration="89146000" />
+      <workItem from="1577793658635" duration="89602000" />
     </task>
     <servers />
   </component>
