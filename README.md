@@ -1,9 +1,9 @@
 # The mazeof WAZE!
 
-#ObjectOriented_Task2
-#Author:Yasmin rachel gedanken 
-#Author:Hila Shoshan
-#Author:Shani Cohen
+#ObjectOriented_Task2.
+#Author:Yasmin rachel gedanken .
+#Author:Hila Shoshan.
+#Author:Shani Cohen.
 
 
 #In this project we work on directed graphs. 
