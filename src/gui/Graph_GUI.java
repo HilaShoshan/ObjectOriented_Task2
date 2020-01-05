@@ -50,6 +50,12 @@ public class Graph_GUI extends JFrame implements ActionListener {
         init();
     }
 
+    /**
+     * This method using STDraw library (utils) to draw the graph.
+     * [look at our wiki to see the explanation of all the parts on the graph].
+     * @param algo = a boolean parameter that says if the method was called by an algorithm (in actionPerformed): shortestPath / TSP.
+     * @param path = a List that represents a path. will be define only if algo is true, otherwise will be null.
+     */
     private void drawGraph(boolean algo, List<node_data> path) {
         StdDraw.setCanvasSize(800,600);
 
@@ -87,8 +93,10 @@ public class Graph_GUI extends JFrame implements ActionListener {
                 double x_space = p_src.x() * 0.05 + p_dest.x() * 0.95;
                 double y_space = p_src.y() * 0.05 + p_dest.y() * 0.95;
                 //add a triangle that represents the head of the arrow
+                double width = (maxX - minX + 6) / 55;
+                double height = (maxY - minY + 6) / 45;
                 StdDraw.picture(x_space, y_space,"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQOAV_8t4Cpta3s1rFNJSvA9OyGs9eyKfuV4Zb0sPE8-3mEZj3O&s",
-                        0.2, 0.4);
+                        width, height);
                 //calculate the space to take from dest, to put the edge's weight
                 x_space = p_src.x() * 0.22 + p_dest.x() * 0.88;
                 y_space = p_src.y() * 0.22 + p_dest.y() * 0.88;
@@ -120,6 +128,14 @@ public class Graph_GUI extends JFrame implements ActionListener {
         return res;
     }
 
+    /**
+     * Method that "paint" the path answer on TSP and shortestPathDist algorithms.
+     * @param path = the result of the algorithm.
+     * @param minX = the minimum x's node value.
+     * @param maxX = the maximum x's node value.
+     * @param maxY = the maximum y's node value.
+     * ! all the max and min values sent here to determine the location of the path text (n1 --> n2 --> ...)
+     */
     private void paintPath(List<node_data> path, double minX, double maxX, double maxY) {
         StdDraw.setPenColor(Color.orange);
         StdDraw.setPenRadius(0.006);
@@ -153,9 +169,13 @@ public class Graph_GUI extends JFrame implements ActionListener {
         StdDraw.text(midX, maxY + 1, "The path is: " + p);
     }
 
+    /**
+     * Initialization method to init the GUI window
+     * The method set menuBar, menus, items - that represent all the options to choose on the program.
+     */
     private void init() {
         this.setVisible(true);
-        this.setSize(700, 600);
+        this.setSize(1000, 600);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         MenuBar menuBar = new MenuBar();
@@ -233,6 +253,11 @@ public class Graph_GUI extends JFrame implements ActionListener {
         }
     }
 
+    /**
+     * A method that "listening" to the user's choice and send to the fitting method.
+     * if there is an error: we're pop up error window to the user and tell him where did he wrong.
+     * @param e = the event that the user choose.
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         //graph menu
@@ -284,7 +309,6 @@ public class Graph_GUI extends JFrame implements ActionListener {
             } catch (Exception err) {
                 throwErr();
             }
-            ;
         }
         if (e.getActionCommand() == "TSP") {
             String path = (String) JOptionPane.showInputDialog(this,
@@ -308,7 +332,8 @@ public class Graph_GUI extends JFrame implements ActionListener {
         if (e.getActionCommand() == "addNode") {
             String node = (String) JOptionPane.showInputDialog(this, "Write a node's key (ID - unique to every node)\n" +
                     " plus 2 double numbers that represent the location [x,y]\n" +
-                    "of a node you want to add ");
+                    "of a node you want to add \n + " +
+                    "Format : int,double,double");
             try {
                 String[] spl = node.split(",");
                 int key = Integer.parseInt(spl[0]);
