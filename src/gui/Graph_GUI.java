@@ -19,7 +19,9 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * This class implements
+ * This class represents graphic interface, and enable to save graph, load it from a saved file, show it.
+ * In addition, enable to run algorithms on it (all the algorithms from Graph_Algo class), and represent the answers.
+ * Also can add / remove Nodes and edges.
  */
 public class Graph_GUI extends JFrame implements ActionListener {
 
@@ -220,18 +222,14 @@ public class Graph_GUI extends JFrame implements ActionListener {
 
         try {
             String path = "http://www.up2me.co.il/imgs/22922760.png";
-            System.out.println("Get Image from " + path);
             URL url = new URL(path);
             BufferedImage image = ImageIO.read(url);
-            System.out.println("Load image into frame...");
             JLabel label = new JLabel(new ImageIcon(image));
             this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             this.getContentPane().add(label);
             this.pack();
-           // f.setLocation(200, 200);
-           // f.setVisible(true);
-        } catch (Exception exp) {
-            exp.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
